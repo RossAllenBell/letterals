@@ -1,5 +1,3 @@
-session average
-negative points for wrong answer
 lifetime score
 lifetime average
 timed mode

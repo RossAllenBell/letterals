@@ -21,6 +21,8 @@ public class Main : MonoBehaviour {
 	public const float PreviewSeconds = 0f;
 	public const float ShiftSeconds = 3f;
 	public const float FullScore = 300;
+	public const float NoGuessPenalty = -50;
+
 	public static GUIStyle OptionStyle;
 	public static GUIStyle LetteralStyle;
 	public static GUIStyle MenuDifficultyStyle;
@@ -28,10 +30,14 @@ public class Main : MonoBehaviour {
 	public static GUIStyle BackStyle;
 	public static GUIStyle NextWordStyle;
 	public static GUIStyle SessionScoreStyle;
+	public static GUIStyle SessionScoreLabelStyle;
 
 	public static Rect BackRect;
 	public static Rect NextWordRect;
 	public static Rect SessionScoreRect;
+	public static Rect SessionAverageRect;
+	public static Rect SessionScoreLabelRect;
+	public static Rect SessionAverageLabelRect;
 
 	public enum Difficulty {None, Easy, Medium, Hard};
 	public static Difficulty CurrentDifficulty = Difficulty.None;
@@ -124,9 +130,17 @@ public class Main : MonoBehaviour {
 		SessionScoreStyle.normal.textColor = Color.black;
 		SessionScoreStyle.alignment = TextAnchor.MiddleRight;
 
+		SessionScoreLabelStyle = new GUIStyle();
+		SessionScoreLabelStyle.fontSize = Main.FontLarge;
+		SessionScoreLabelStyle.normal.textColor = Color.black;
+		SessionScoreLabelStyle.alignment = TextAnchor.MiddleLeft;
+
 		BackRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), (NativeWidth / 3) - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		NextWordRect = new Rect(NativeWidth * 0.05f, NativeWidth * 0.05f, NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionScoreRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
+		SessionAverageRect = new Rect(NativeWidth * 0.05f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 2) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
+		SessionScoreLabelRect = new Rect(NativeWidth * 0.5f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
+		SessionAverageLabelRect = new Rect(NativeWidth * 0.5f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 2) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
         
 	}
 	
@@ -198,7 +212,9 @@ public class Main : MonoBehaviour {
 	private List<string> currentOptions;
 	private float startTime = -ShiftSeconds;
 	private List<Letteral> letterals;
-	private long sessionScore;
+	private float sessionScore;
+	private float sessionAverage;
+	private int sessionCount;
 	private bool guessed;
 	
 	private void GameUpdate() {
@@ -207,14 +223,14 @@ public class Main : MonoBehaviour {
 			GUI.Label(NextWordRect, "next word...", NextWordStyle);
 			Utils.DrawRectangle(NextWordRect, 50, Color.black);
 
-			if(!guessed){
+			if(!guessed && currentWord != null){
 				guessed = true;
-				sessionScore -= 10;
+				changeSessionScoreBy(NoGuessPenalty);
 			}
 
 			if(Main.Clicked && NextWordRect.Contains(Main.TouchGuiLocation)) {
 				if(currentWord == null){
-					sessionScore = 0;
+					resetSessionScore();
 				}
 
 				guessed = false;
@@ -238,8 +254,8 @@ public class Main : MonoBehaviour {
 				Utils.DrawRectangle(rect, 50, Color.black);
 				if(!guessed && Main.Clicked && rect.Contains(Main.TouchGuiLocation)) {
 					guessed = true;
-					long scoreImpact = (long) Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - startTime)) / ShiftSeconds));
-					sessionScore += currentOptions[i] == currentWord? scoreImpact : -scoreImpact;
+					float scoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - startTime)) / ShiftSeconds));
+					changeSessionScoreBy(currentOptions[i] == currentWord? scoreImpact : -scoreImpact);
 				}
 			}
 
@@ -249,18 +265,34 @@ public class Main : MonoBehaviour {
 
 		}
 
-		GUI.Label(SessionScoreRect, sessionScore.ToString(), SessionScoreStyle);
+		GUI.Label(SessionScoreLabelRect, "total", SessionScoreLabelStyle);
+		GUI.Label(SessionAverageLabelRect, "average", SessionScoreLabelStyle);
+
+		GUI.Label(SessionScoreRect, sessionScore.ToString("0"), SessionScoreStyle);
+		GUI.Label(SessionAverageRect, sessionAverage.ToString("0.0"), SessionScoreStyle);
 
 		GUI.Label(BackRect, "BACK", BackStyle);
 		Utils.DrawRectangle(BackRect, 50, Color.black);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
 			currentWord = null;
 			startTime = -ShiftSeconds;
-			sessionScore = 0;
+			resetSessionScore();
 
 			CurrentDifficulty = Difficulty.None;
 		}
 
+	}
+
+	private void changeSessionScoreBy(float change){
+		sessionScore += change;
+		sessionAverage = ((sessionAverage * sessionCount) + (change)) / (sessionCount + 1f);
+		sessionCount++;
+	}
+
+	private void resetSessionScore() {
+		sessionScore = 0;
+		sessionAverage = 0;
+		sessionCount = 0;
 	}
 
 	private List<string> EasyStrings() {
