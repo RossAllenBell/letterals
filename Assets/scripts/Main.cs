@@ -24,6 +24,9 @@ public class Main : MonoBehaviour {
 	public static GUIStyle LetteralStyle;
 	public static GUIStyle MenuDifficultyStyle;
 	public static GUIStyle TitleStyle;
+	public static GUIStyle BackStyle;
+
+	public static Rect BackRect;
 
 	public enum Difficulty {None, Easy, Medium, Hard};
 	public static Difficulty CurrentDifficulty = Difficulty.None;
@@ -100,12 +103,23 @@ public class Main : MonoBehaviour {
 		TitleStyle.fontSize = Main.FontLargest * 2;
 		TitleStyle.normal.textColor = Color.black;
 		TitleStyle.alignment = TextAnchor.MiddleCenter;
+
+		BackStyle = new GUIStyle();
+		BackStyle.fontSize = Main.FontLarge;
+		BackStyle.normal.textColor = Color.black;
+		BackStyle.alignment = TextAnchor.MiddleCenter;
+
+		BackRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), (NativeWidth / 3) - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
         
 	}
 	
 	void Update () {
 
-        if (Input.touchCount > 0 | Input.GetMouseButton (0)) {
+    }
+
+    void OnGUI(){
+
+        if (Input.touchCount > 0 || Input.GetMouseButton (0)) {
             Vector2 tempLocation = Input.touchCount > 0 ? Input.GetTouch (0).position : (Vector2)Input.mousePosition;
             touchLocation = new Vector2 (tempLocation.x, tempLocation.y);
             click = !touching;
@@ -114,10 +128,6 @@ public class Main : MonoBehaviour {
             click = false;
             touching = false;
         }
-
-    }
-
-    void OnGUI(){
 
     	if (CurrentDifficulty == Difficulty.None) {
     		MenuScreen();
@@ -134,11 +144,17 @@ public class Main : MonoBehaviour {
 
 	private void MenuScreen(){
 
-		Rect titleRect = new Rect(0, 0, NativeWidth, NativeHeight / 5);
+		GUI.Label(BackRect, "EXIT", BackStyle);
+		Utils.DrawRectangle(BackRect, 50, Color.black);
+		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
+			Application.Quit();
+		}
 
-		Rect easyRect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 5f) * 1) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 5f) - (NativeWidth * 0.05f));
-		Rect mediumRect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 5f) * 2) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 5f) - (NativeWidth * 0.05f));
-		Rect hardRect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 5f) * 3) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 5f) - (NativeWidth * 0.05f));
+		Rect titleRect = new Rect(0, 0, NativeWidth, (NativeHeight / 6) * 2);
+
+		Rect easyRect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 6f) * 2) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 6f) - (NativeWidth * 0.05f));
+		Rect mediumRect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 6f) * 3) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 6f) - (NativeWidth * 0.05f));
+		Rect hardRect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 6f) * 4) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 6f) - (NativeWidth * 0.05f));
 
 		GUI.Label(titleRect, "LETTERALS", TitleStyle);
 
@@ -184,9 +200,15 @@ public class Main : MonoBehaviour {
 		}
 
 		for(int i=0; i<currentOptions.Count; i++){
-			Rect rect = new Rect(0, (NativeHeight / 5f) * (i + 2), NativeWidth, NativeHeight / 5f);
+			Rect rect = new Rect(0, (NativeHeight / 6f) * (i + 2), NativeWidth, NativeHeight / 6f);
 
 			GUI.Label(rect, currentOptions[i], OptionStyle);
+		}
+
+		GUI.Label(BackRect, "BACK", BackStyle);
+		Utils.DrawRectangle(BackRect, 50, Color.black);
+		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
+			CurrentDifficulty = Difficulty.None;
 		}
 
 	}

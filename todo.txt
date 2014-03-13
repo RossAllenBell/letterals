@@ -1,4 +1,3 @@
-back/exit button
 phase between words
 session score
 negative points for wrong answer

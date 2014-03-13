@@ -16,7 +16,7 @@ public class LetteralGenerator {
 			}
 
 			//Vector2 startPos = new Vector2(((labelSize / (float) word.Length) * newIndex) + ((Main.NativeWidth / 2) - (labelSize / 2)), Main.NativeHeight / 5f);
-			Vector2 endPos = new Vector2(((labelSize / (float) word.Length) * i) + ((Main.NativeWidth / 2) - (labelSize / 2)), Main.NativeHeight / 5f);
+			Vector2 endPos = new Vector2(((labelSize / (float) word.Length) * i) + ((Main.NativeWidth / 2) - (labelSize / 2)), Main.NativeHeight / 6f);
 			Vector2 startPos = endPos + (new Vector2(Random.value * 2 - 1, Random.value * 2 - 1).normalized * (labelSize / 2));
 
 			letterals[newIndex] = new Letteral(characters[i].ToString(), labelSize / word.Length, startPos, endPos);
