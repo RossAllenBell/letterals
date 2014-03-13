@@ -1,8 +1,9 @@
-session score
+session average
 negative points for wrong answer
-timed mode
-	score within 60 seconds
 lifetime score
 lifetime average
+timed mode
+	score within 60 seconds
 transitions between scenes
+improve styling
 web high scores
