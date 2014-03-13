@@ -1,0 +1,10 @@
+back/exit button
+phase between words
+session score
+negative points for wrong answer
+timed mode
+	score within 60 seconds
+lifetime score
+lifetime average
+transitions between scenes
+web high scores

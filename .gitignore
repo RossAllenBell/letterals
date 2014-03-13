@@ -1,0 +1,11 @@
+*.csproj
+*.sln
+*.userprefs
+Library/
+Temp/
+*.apk
+*.exe
+*_Data/
+*.keystore
+*.pdb
+output.txt
