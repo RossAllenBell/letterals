@@ -25,8 +25,10 @@ public class Main : MonoBehaviour {
 	public static GUIStyle MenuDifficultyStyle;
 	public static GUIStyle TitleStyle;
 	public static GUIStyle BackStyle;
+	public static GUIStyle NextWordStyle;
 
 	public static Rect BackRect;
+	public static Rect NextWordRect;
 
 	public enum Difficulty {None, Easy, Medium, Hard};
 	public static Difficulty CurrentDifficulty = Difficulty.None;
@@ -109,7 +111,13 @@ public class Main : MonoBehaviour {
 		BackStyle.normal.textColor = Color.black;
 		BackStyle.alignment = TextAnchor.MiddleCenter;
 
+		NextWordStyle = new GUIStyle();
+		NextWordStyle.fontSize = Main.FontLarge;
+		NextWordStyle.normal.textColor = Color.black;
+		NextWordStyle.alignment = TextAnchor.MiddleCenter;
+
 		BackRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), (NativeWidth / 3) - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
+		NextWordRect = new Rect(NativeWidth * 0.05f, NativeWidth * 0.05f, NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
         
 	}
 	
@@ -179,35 +187,48 @@ public class Main : MonoBehaviour {
 
 	private string currentWord;
 	private List<string> currentOptions;
-	private float startTime;
+	private float startTime = -ShiftSeconds;
 	private List<Letteral> letterals;
 	
 	private void GameUpdate() {
 		
-		if(currentWord == null || Clicked) {
-			startTime = Time.time;
-			switch (CurrentDifficulty){
-				case Difficulty.Easy: currentOptions = EasyStrings(); break;
-				case Difficulty.Medium: currentOptions = MediumStrings(); break;
-				case Difficulty.Hard: currentOptions = HardStrings(); break;
+		if (startTime < Time.time - ShiftSeconds) {
+			GUI.Label(NextWordRect, "next word...", NextWordStyle);
+			Utils.DrawRectangle(NextWordRect, 50, Color.black);
+
+			if(Main.Clicked && NextWordRect.Contains(Main.TouchGuiLocation)) {
+				startTime = Time.time;
+				switch (CurrentDifficulty){
+					case Difficulty.Easy: currentOptions = EasyStrings(); break;
+					case Difficulty.Medium: currentOptions = MediumStrings(); break;
+					case Difficulty.Hard: currentOptions = HardStrings(); break;
+				}
+				currentWord = currentOptions[(int) (currentOptions.Count * Random.value)];
+				letterals = LetteralGenerator.GenerateLetterals(currentWord);
 			}
-			currentWord = currentOptions[(int) (currentOptions.Count * Random.value)];
-			letterals = LetteralGenerator.GenerateLetterals(currentWord);
 		}
 
-		foreach(Letteral letteral in letterals){
-			letteral.Update();
-		}
+		if (currentWord != null) {
 
-		for(int i=0; i<currentOptions.Count; i++){
-			Rect rect = new Rect(0, (NativeHeight / 6f) * (i + 2), NativeWidth, NativeHeight / 6f);
+			for(int i=0; i<currentOptions.Count; i++){
+				Rect rect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 6f) * (i + 2)) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 6f) - (NativeWidth * 0.05f));
 
-			GUI.Label(rect, currentOptions[i], OptionStyle);
+				GUI.Label(rect, currentOptions[i], OptionStyle);
+				Utils.DrawRectangle(rect, 50, Color.black);
+			}
+
+			foreach(Letteral letteral in letterals){
+				letteral.Update();
+			}
+
 		}
 
 		GUI.Label(BackRect, "BACK", BackStyle);
 		Utils.DrawRectangle(BackRect, 50, Color.black);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
+			currentWord = null;
+			startTime = -ShiftSeconds;
+
 			CurrentDifficulty = Difficulty.None;
 		}
 

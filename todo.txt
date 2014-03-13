@@ -1,4 +1,3 @@
-phase between words
 session score
 negative points for wrong answer
 timed mode
