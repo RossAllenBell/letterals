@@ -18,6 +18,7 @@ public class Main : MonoBehaviour {
 
 	public static readonly Color NavyBlue = new Color(0, 34f/255, 171f/255);
 	public static readonly Color PhaseProgressBarColor = new Color(150f/255, 150f/255, 150f/255, 150f/255);
+	public static readonly Color LabelColor = new Color(150/255, 150/255, 150/255, 200f/255);
 
 	public const float PreviewSeconds = 0f;
 	public const float ShiftSeconds = 3f;
@@ -37,8 +38,10 @@ public class Main : MonoBehaviour {
 	public static Rect NextWordRect;
 	public static Rect SessionScoreRect;
 	public static Rect SessionAverageRect;
+	public static Rect PhaseScoreImpactRect;
 	public static Rect SessionScoreLabelRect;
 	public static Rect SessionAverageLabelRect;
+	public static Rect PhaseScoreImpactLabelRect;
 
 	public enum Difficulty {None, Easy, Medium, Hard};
 	public static Difficulty CurrentDifficulty = Difficulty.None;
@@ -133,16 +136,18 @@ public class Main : MonoBehaviour {
 
 		SessionScoreLabelStyle = new GUIStyle();
 		SessionScoreLabelStyle.fontSize = Main.FontLarge;
-		SessionScoreLabelStyle.normal.textColor = Color.black;
+		SessionScoreLabelStyle.normal.textColor = LabelColor;
 		SessionScoreLabelStyle.alignment = TextAnchor.MiddleLeft;
 
 		BackRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), (NativeWidth / 3) - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		NextWordRect = new Rect(NativeWidth * 0.05f, NativeWidth * 0.05f, NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionScoreRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionAverageRect = new Rect(NativeWidth * 0.05f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 2) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
+		PhaseScoreImpactRect = new Rect(NativeWidth * 0.05f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 3) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionScoreLabelRect = new Rect(NativeWidth * 0.5f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionAverageLabelRect = new Rect(NativeWidth * 0.5f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 2) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
-
+		PhaseScoreImpactLabelRect = new Rect(NativeWidth * 0.5f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 3) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
+		
 	}
 	
 	void Update () {
@@ -217,6 +222,7 @@ public class Main : MonoBehaviour {
 	private float sessionAverage;
 	private int sessionCount;
 	private bool guessed;
+	private float lastScoreImpact;
 	
 	private void GameUpdate() {
 		
@@ -226,7 +232,8 @@ public class Main : MonoBehaviour {
 
 			if(!guessed && currentWord != null){
 				guessed = true;
-				changeSessionScoreBy(NoGuessPenalty);
+				lastScoreImpact = NoGuessPenalty;
+				changeSessionScoreBy(lastScoreImpact);
 			}
 
 			if(Main.Clicked && NextWordRect.Contains(Main.TouchGuiLocation)) {
@@ -234,6 +241,7 @@ public class Main : MonoBehaviour {
 					resetSessionScore();
 				}
 
+				lastScoreImpact = 0;
 				guessed = false;
 				startTime = Time.time;
 				switch (CurrentDifficulty){
@@ -258,8 +266,9 @@ public class Main : MonoBehaviour {
 				Utils.DrawRectangle(rect, 50, Color.black);
 				if(!guessed && Main.Clicked && rect.Contains(Main.TouchGuiLocation)) {
 					guessed = true;
-					float scoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - startTime)) / ShiftSeconds));
-					changeSessionScoreBy(currentOptions[i] == currentWord? scoreImpact : -scoreImpact);
+					lastScoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - startTime)) / ShiftSeconds));
+					lastScoreImpact = currentOptions[i] == currentWord? lastScoreImpact : -lastScoreImpact;
+					changeSessionScoreBy(lastScoreImpact);
 				}
 			}
 
@@ -271,9 +280,11 @@ public class Main : MonoBehaviour {
 
 		GUI.Label(SessionScoreLabelRect, "total", SessionScoreLabelStyle);
 		GUI.Label(SessionAverageLabelRect, "average", SessionScoreLabelStyle);
+		GUI.Label(PhaseScoreImpactLabelRect, "this word", SessionScoreLabelStyle);
 
 		GUI.Label(SessionScoreRect, sessionScore.ToString("0"), SessionScoreStyle);
 		GUI.Label(SessionAverageRect, sessionAverage.ToString("0.0"), SessionScoreStyle);
+		if(lastScoreImpact != 0) GUI.Label(PhaseScoreImpactRect, lastScoreImpact.ToString("0"), SessionScoreStyle);
 
 		GUI.Label(BackRect, "BACK", BackStyle);
 		Utils.DrawRectangle(BackRect, 50, Color.black);

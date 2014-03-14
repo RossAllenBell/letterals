@@ -1,5 +1,3 @@
-score impact indicator
-score impact animation to session score
 lifetime score
 lifetime average
 timed mode
