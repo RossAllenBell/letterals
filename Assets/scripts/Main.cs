@@ -26,6 +26,8 @@ public class Main : MonoBehaviour {
 	public const float NoGuessPenalty = -50;
 
 	public static GUIStyle OptionStyle;
+	public static GUIStyle WrongOptionStyle;
+	public static GUIStyle ObsoleteOptionStyle;
 	public static GUIStyle LetteralStyle;
 	public static GUIStyle MenuDifficultyStyle;
 	public static GUIStyle TitleStyle;
@@ -104,6 +106,16 @@ public class Main : MonoBehaviour {
 		OptionStyle.normal.textColor = Color.black;
 		OptionStyle.alignment = TextAnchor.MiddleCenter;
 
+		WrongOptionStyle = new GUIStyle();
+		WrongOptionStyle.fontSize = Main.FontLargest;
+		WrongOptionStyle.normal.textColor = Color.red;
+		WrongOptionStyle.alignment = TextAnchor.MiddleCenter;
+
+		ObsoleteOptionStyle = new GUIStyle();
+		ObsoleteOptionStyle.fontSize = Main.FontLargest;
+		ObsoleteOptionStyle.normal.textColor = PhaseProgressBarColor;
+		ObsoleteOptionStyle.alignment = TextAnchor.MiddleCenter;
+
 		LetteralStyle = new GUIStyle();
 		LetteralStyle.fontSize = Main.FontLargest;
 		LetteralStyle.normal.textColor = Color.yellow;
@@ -140,7 +152,7 @@ public class Main : MonoBehaviour {
 		SessionScoreLabelStyle.alignment = TextAnchor.MiddleLeft;
 
 		BackRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), (NativeWidth / 3) - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
-		NextWordRect = new Rect(NativeWidth * 0.05f, NativeWidth * 0.05f, NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
+		NextWordRect = new Rect(NativeWidth * 0.05f, NativeWidth * 0.05f, NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f));
 		SessionScoreRect = new Rect(NativeWidth * 0.05f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionAverageRect = new Rect(NativeWidth * 0.05f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 2) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		PhaseScoreImpactRect = new Rect(NativeWidth * 0.05f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 3) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
@@ -222,6 +234,7 @@ public class Main : MonoBehaviour {
 	private float sessionAverage;
 	private int sessionCount;
 	private bool guessed;
+	private string guessedOption;
 	private float lastScoreImpact;
 	
 	private void GameUpdate() {
@@ -256,19 +269,37 @@ public class Main : MonoBehaviour {
 
 		if (currentWord != null) {
 
-			Rect phaseProgressBarRect = new Rect(0f,0f,NativeWidth * ((Time.time - startTime) / ShiftSeconds),NativeWidth*0.05f);
-			Utils.FillRectangle(phaseProgressBarRect, PhaseProgressBarColor);
+			float phaseProgress = (Time.time - startTime) / ShiftSeconds;
+			if(phaseProgress < 1f){
+				Rect phaseProgressBarRect = new Rect(0f,0f,NativeWidth * phaseProgress,NativeWidth*0.05f);
+				Utils.FillRectangle(phaseProgressBarRect, PhaseProgressBarColor);
+			}
 
 			for(int i=0; i<currentOptions.Count; i++){
 				Rect rect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 6f) * (i + 2)) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 6f) - (NativeWidth * 0.05f));
 
-				GUI.Label(rect, currentOptions[i], OptionStyle);
-				Utils.DrawRectangle(rect, 50, Color.black);
-				if(!guessed && Main.Clicked && rect.Contains(Main.TouchGuiLocation)) {
+								if(!guessed && Main.Clicked && rect.Contains(Main.TouchGuiLocation)) {
 					guessed = true;
+					guessedOption = currentOptions[i];
 					lastScoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - startTime)) / ShiftSeconds));
-					lastScoreImpact = currentOptions[i] == currentWord? lastScoreImpact : -lastScoreImpact;
+					lastScoreImpact = guessedOption == currentWord? lastScoreImpact : -lastScoreImpact;
 					changeSessionScoreBy(lastScoreImpact);
+				}
+
+				if(guessed) {
+					if(currentOptions[i] == currentWord){
+						GUI.Label(rect, currentOptions[i], OptionStyle);
+						Utils.DrawRectangle(rect, 50, Color.black);
+					} else if (currentOptions[i] == guessedOption) {
+						GUI.Label(rect, currentOptions[i], WrongOptionStyle);
+						Utils.DrawRectangle(rect, 50, Color.red);
+					} else {
+						GUI.Label(rect, currentOptions[i], ObsoleteOptionStyle);
+						Utils.DrawRectangle(rect, 50, PhaseProgressBarColor);
+					}
+				} else {
+					GUI.Label(rect, currentOptions[i], OptionStyle);
+					Utils.DrawRectangle(rect, 50, Color.black);
 				}
 			}
 
