@@ -1,7 +1,10 @@
+score impact indicator
+score impact animation to session score
 lifetime score
 lifetime average
 timed mode
 	score within 60 seconds
+add basic directions
 transitions between scenes
 improve styling
 web high scores

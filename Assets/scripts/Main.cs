@@ -17,6 +17,7 @@ public class Main : MonoBehaviour {
 	public static int FontLarge = (int) (FontLargest * 0.75f);
 
 	public static readonly Color NavyBlue = new Color(0, 34f/255, 171f/255);
+	public static readonly Color PhaseProgressBarColor = new Color(150f/255, 150f/255, 150f/255, 150f/255);
 
 	public const float PreviewSeconds = 0f;
 	public const float ShiftSeconds = 3f;
@@ -141,7 +142,7 @@ public class Main : MonoBehaviour {
 		SessionAverageRect = new Rect(NativeWidth * 0.05f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 2) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionScoreLabelRect = new Rect(NativeWidth * 0.5f, NativeHeight - (((NativeHeight / 12f) - (NativeWidth * 0.05f)) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
 		SessionAverageLabelRect = new Rect(NativeWidth * 0.5f, NativeHeight - ((((NativeHeight / 12f) - (NativeWidth * 0.05f)) * 2) + (NativeWidth * 0.05f)), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 12f) - (NativeWidth * 0.05f));
-        
+
 	}
 	
 	void Update () {
@@ -246,6 +247,9 @@ public class Main : MonoBehaviour {
 		}
 
 		if (currentWord != null) {
+
+			Rect phaseProgressBarRect = new Rect(0f,0f,NativeWidth * ((Time.time - startTime) / ShiftSeconds),NativeWidth*0.05f);
+			Utils.FillRectangle(phaseProgressBarRect, PhaseProgressBarColor);
 
 			for(int i=0; i<currentOptions.Count; i++){
 				Rect rect = new Rect(0 + (NativeWidth * 0.05f), ((NativeHeight / 6f) * (i + 2)) + (NativeWidth * 0.025f), NativeWidth - (NativeWidth * 0.1f), (NativeHeight / 6f) - (NativeWidth * 0.05f));

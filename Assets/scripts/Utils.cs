@@ -55,5 +55,15 @@ public class Utils {
         GUI.Box(rectS, GUIContent.none, style);
         GUI.Box(rectW, GUIContent.none, style);
     }
+
+    public static void FillRectangle(Rect rect, Color color) {
+        GUIStyle style = new GUIStyle();
+        Texture2D texture = new Texture2D(1,1);
+        texture.SetPixel(0,0,color);
+        texture.Apply();
+        style.normal.background = texture;
+
+        GUI.Box(rect, GUIContent.none, style);
+    }
         
 }
