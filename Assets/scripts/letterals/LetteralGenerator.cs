@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class LetteralGenerator {
 
 	public static List<Letteral> GenerateLetterals(string word) {
+		
 		Letteral[] letterals = new Letteral[word.Length];
 		char[] characters = word.ToCharArray();
 

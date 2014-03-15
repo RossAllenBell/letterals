@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Utils {
     
+    public const float BasicallyZero = 0.0001f;
+    
     public static void DrawOutline(Rect position, string text, GUIStyle style) {
             DrawOutline(position, text, style, 2);
     }
