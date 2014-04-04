@@ -1,5 +1,3 @@
-lifetime score
-lifetime average
 add basic directions
 filter bad words
 transitions between scenes

@@ -150,6 +150,7 @@ public class GameScreen : Gui {
 			}
 
 			if(Time.time - sessionLowerBoundsTime > BeginningSeconds){
+				checkForLifetimeRecords();
 				sessionStartTime = 0;
 			}
 
@@ -172,10 +173,6 @@ public class GameScreen : Gui {
 	}
 
 	private void resetSession(){
-		if(sessionStartTime != 0){
-			checkForLifetimeRecords();
-		}
-
 		sessionScore = 0f;
 		sessionAverage = 0f;
 		sessionCount = 0;
@@ -200,25 +197,33 @@ public class GameScreen : Gui {
 	}
 
 	private void checkForLifetimeRecords(){
-		if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Easy) || Main.LifetimeScores[WordOptions.Difficulty.Easy] < sessionScore){
-			Main.LifetimeScores[WordOptions.Difficulty.Easy] = sessionScore;
-		}
-		if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Easy) || Main.LifetimeAverages[WordOptions.Difficulty.Easy] < sessionAverage){
-			Main.LifetimeAverages[WordOptions.Difficulty.Easy] = sessionAverage;
-		}
-
-		if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Medium) || Main.LifetimeScores[WordOptions.Difficulty.Medium] < sessionScore){
-			Main.LifetimeScores[WordOptions.Difficulty.Medium] = sessionScore;
-		}
-		if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Medium) || Main.LifetimeAverages[WordOptions.Difficulty.Medium] < sessionAverage){
-			Main.LifetimeAverages[WordOptions.Difficulty.Medium] = sessionAverage;
-		}
-
-		if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Hard) || Main.LifetimeScores[WordOptions.Difficulty.Hard] < sessionScore){
-			Main.LifetimeScores[WordOptions.Difficulty.Hard] = sessionScore;
-		}
-		if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Hard) || Main.LifetimeAverages[WordOptions.Difficulty.Hard] < sessionAverage){
-			Main.LifetimeAverages[WordOptions.Difficulty.Hard] = sessionAverage;
+		if(this.difficulty == WordOptions.Difficulty.Easy){
+			if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Easy) || Main.LifetimeScores[WordOptions.Difficulty.Easy] < sessionScore){
+				Main.LifetimeScores[WordOptions.Difficulty.Easy] = sessionScore;
+				PlayerPrefs.SetFloat(Main.LifetimeScoreName(this.difficulty), sessionScore);
+			}
+			if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Easy) || Main.LifetimeAverages[WordOptions.Difficulty.Easy] < sessionAverage){
+				Main.LifetimeAverages[WordOptions.Difficulty.Easy] = sessionAverage;
+				PlayerPrefs.SetFloat(Main.LifetimeAverageName(this.difficulty), sessionAverage);
+			}
+		} else if(this.difficulty == WordOptions.Difficulty.Medium){
+			if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Medium) || Main.LifetimeScores[WordOptions.Difficulty.Medium] < sessionScore){
+				Main.LifetimeScores[WordOptions.Difficulty.Medium] = sessionScore;
+				PlayerPrefs.SetFloat(Main.LifetimeScoreName(this.difficulty), sessionScore);
+			}
+			if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Medium) || Main.LifetimeAverages[WordOptions.Difficulty.Medium] < sessionAverage){
+				Main.LifetimeAverages[WordOptions.Difficulty.Medium] = sessionAverage;
+				PlayerPrefs.SetFloat(Main.LifetimeAverageName(this.difficulty), sessionAverage);
+			}
+		} else if (this.difficulty == WordOptions.Difficulty.Hard){
+			if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Hard) || Main.LifetimeScores[WordOptions.Difficulty.Hard] < sessionScore){
+				Main.LifetimeScores[WordOptions.Difficulty.Hard] = sessionScore;
+				PlayerPrefs.SetFloat(Main.LifetimeScoreName(this.difficulty), sessionScore);
+			}
+			if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Hard) || Main.LifetimeAverages[WordOptions.Difficulty.Hard] < sessionAverage){
+				Main.LifetimeAverages[WordOptions.Difficulty.Hard] = sessionAverage;
+				PlayerPrefs.SetFloat(Main.LifetimeAverageName(this.difficulty), sessionAverage);
+			}
 		}
 	}
 
