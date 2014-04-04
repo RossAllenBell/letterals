@@ -15,6 +15,7 @@ public class Main : MonoBehaviour {
     private const int NormalLargestFont = 300;
 	public static int FontLargest;
 	public static int FontLarge;
+	public static int FontMedium;
 
 	public static GUIStyle LetteralStyle;
 	
@@ -72,6 +73,7 @@ public class Main : MonoBehaviour {
 
 		FontLargest = (int) (NormalLargestFont * GuiRatio);
 		FontLarge = (int) (NormalLargestFont * 0.75 * GuiRatio);
+		FontMedium = (int) (NormalLargestFont * 0.50 * GuiRatio);
 
 		LetteralStyle = new GUIStyle();
 		LetteralStyle.fontSize = Main.FontLargest;
