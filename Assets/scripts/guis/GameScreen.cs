@@ -10,9 +10,11 @@ public class GameScreen : Gui {
 
 	public static readonly Color PhaseProgressBarColor = new Color(150f/255, 150f/255, 150f/255, 150f/255);
 	public static readonly Color LabelColor = new Color(150/255, 150/255, 150/255, 200f/255);
+	public static readonly Color NavyBlue = new Color(0, 34f/255, 171f/255);
 
 	private GUIStyle BackStyle;
 	private GUIStyle OptionStyle;
+	private GUIStyle CorrectOptionStyle;
 	private GUIStyle WrongOptionStyle;
 	private GUIStyle ObsoleteOptionStyle;
 	private GUIStyle NextWordStyle;
@@ -44,12 +46,17 @@ public class GameScreen : Gui {
 
 		BackStyle = new GUIStyle();
 		BackStyle.fontSize = Main.FontLarge;
-		BackStyle.normal.textColor = Color.black;
+		BackStyle.normal.textColor = NavyBlue;
 		BackStyle.alignment = TextAnchor.MiddleCenter;
+
+		CorrectOptionStyle = new GUIStyle();
+		CorrectOptionStyle.fontSize = Main.FontLargest;
+		CorrectOptionStyle.normal.textColor = Color.black;
+		CorrectOptionStyle.alignment = TextAnchor.MiddleCenter;
 
 		OptionStyle = new GUIStyle();
 		OptionStyle.fontSize = Main.FontLargest;
-		OptionStyle.normal.textColor = Color.black;
+		OptionStyle.normal.textColor = NavyBlue;
 		OptionStyle.alignment = TextAnchor.MiddleCenter;
 
 		WrongOptionStyle = new GUIStyle();
@@ -64,7 +71,7 @@ public class GameScreen : Gui {
 
 		NextWordStyle = new GUIStyle();
 		NextWordStyle.fontSize = Main.FontLarge;
-		NextWordStyle.normal.textColor = Color.black;
+		NextWordStyle.normal.textColor = NavyBlue;
 		NextWordStyle.alignment = TextAnchor.MiddleCenter;
 
 		SessionScoreStyle = new GUIStyle();
@@ -138,7 +145,7 @@ public class GameScreen : Gui {
 
 				if(guessed) {
 					if(currentOptions[i] == currentWord){
-						GUI.Label(rect, currentOptions[i], OptionStyle);
+						GUI.Label(rect, currentOptions[i], CorrectOptionStyle);
 						Utils.DrawRectangle(rect, 50, Color.black);
 					} else if (currentOptions[i] == guessedOption) {
 						GUI.Label(rect, currentOptions[i], WrongOptionStyle);
