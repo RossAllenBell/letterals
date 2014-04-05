@@ -93,7 +93,7 @@ public class Main : MonoBehaviour {
 			}
 		}
 		
-		currentGui = new MainMenu();
+		currentGui = new Intro();
 		
 	}
 	
