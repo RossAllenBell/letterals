@@ -1,5 +1,6 @@
-add basic directions
 filter bad words
 transitions between scenes
 web high scores
 show ads after timed mode recap
+top 5 local high scores
+high score reset with hard to push confirmation

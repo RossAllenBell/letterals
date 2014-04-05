@@ -12,7 +12,7 @@ public class GameScreen : Gui {
 	public const float PointsToTimeConversion = ShiftSeconds / FullScore;
 
 	public static readonly Color PhaseProgressBarColor = new Color(150f/255, 150f/255, 150f/255, 150f/255);
-	public static readonly Color LabelColor = new Color(150/255, 150/255, 150/255, 200f/255);
+	public static readonly Color LabelColor = new Color(150/255, 150/255, 150/255, 150f/255);
 	public static readonly Color NavyBlue = new Color(0, 34f/255, 171f/255);
 	public static readonly Color SessionHealthPercentageColor = new Color(1f, 0f, 0f, 100f/255);
 
@@ -24,6 +24,7 @@ public class GameScreen : Gui {
 	private GUIStyle NextWordStyle;
 	private GUIStyle SessionScoreStyle;
 	private GUIStyle SessionScoreLabelStyle;
+	private GUIStyle InstructionsStyle;
 
 	private Rect BackRect;
 	private Rect BeginRect;
@@ -33,6 +34,9 @@ public class GameScreen : Gui {
 	private Rect SessionScoreLabelRect;
 	private Rect SessionAverageLabelRect;
 	private Rect PhaseScoreImpactLabelRect;
+	private Rect InstructionsRect;
+
+	public const string Instructions = "Letters will appear and slowly form a word. You will be presented with three options. Click on the option that matches the slowly forming word.\n\nChoosing the correct word will add more time to the round. Choosing an incorrect word will remove time. In either case, the faster you act, the greater the affect on time.";
 
 	private WordOptions.Difficulty difficulty;
 	private string currentWord;
@@ -90,8 +94,16 @@ public class GameScreen : Gui {
 		SessionScoreLabelStyle.normal.textColor = LabelColor;
 		SessionScoreLabelStyle.alignment = TextAnchor.MiddleLeft;
 
+		InstructionsStyle = new GUIStyle();
+		InstructionsStyle.fontSize = Main.FontLarge;
+		InstructionsStyle.normal.textColor = Color.black;
+		InstructionsStyle.alignment = TextAnchor.MiddleCenter;
+		InstructionsStyle.wordWrap = true;
+
 		BackRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		BeginRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f));
+		//InstructionsRect = new Rect(Main.NativeWidth * 0.05f, (Main.NativeWidth * 0.05f) + (Main.NativeHeight / 12f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - ((Main.NativeWidth * 0.05f) + (Main.NativeHeight / 12f)));
+		InstructionsRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight - (Main.NativeWidth * 0.1f));
 		SessionScoreRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		SessionAverageRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 2) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		PhaseScoreImpactRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 3) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
@@ -109,6 +121,8 @@ public class GameScreen : Gui {
 		if (sessionStartTime == 0) {
 			GUI.Label(BeginRect, "begin...", NextWordStyle);
 			Utils.DrawRectangle(BeginRect, 50, Color.black);
+
+			GUI.Label(InstructionsRect, Instructions, InstructionsStyle);
 
 			if(Main.Clicked && BeginRect.Contains(Main.TouchGuiLocation)) {
 				resetSession();
