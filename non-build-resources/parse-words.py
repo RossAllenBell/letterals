@@ -5,7 +5,7 @@ def getSortedLetters (string):
 
 wordsByLength = {}
 
-with open('wordsEn.txt', 'r') as f:
+with open('wordsEn-filtered.txt', 'r') as f:
 	for line in f:
 		line = line.rstrip()
 		length = len(line)

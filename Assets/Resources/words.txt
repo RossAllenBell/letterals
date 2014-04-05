@@ -940,8 +940,6 @@ fang
 
 frag
 
-fags
-
 half
 
 haft
@@ -1753,7 +1751,6 @@ yaws
 
 taut
 
-twat
 watt
 
 atty
@@ -2175,8 +2172,6 @@ chic
 
 circ
 
-cock
-
 coco
 
 cede
@@ -2198,8 +2193,6 @@ duce
 cmdg
 
 chid
-
-dick
 
 odic
 
@@ -2343,8 +2336,6 @@ cuff
 coif
 foci
 
-fuck
-
 conf
 
 chug
@@ -2430,7 +2421,6 @@ coir
 otic
 
 pics
-spic
 
 uric
 
@@ -2517,8 +2507,6 @@ unco
 cony
 
 sync
-
-cunt
 
 coop
 poco
@@ -2667,8 +2655,6 @@ hued
 
 hyde
 
-dike
-
 deli
 idle
 lied
@@ -2707,8 +2693,6 @@ drek
 desk
 
 duke
-
-dyke
 
 dell
 
@@ -3443,8 +3427,6 @@ whey
 joie
 
 jive
-
-kike
 
 like
 
@@ -4418,7 +4400,6 @@ hiss
 
 hist
 hits
-shit
 this
 
 shiv
@@ -4871,8 +4852,6 @@ wiry
 
 sits
 
-tits
-
 situ
 suit
 
@@ -5077,7 +5056,6 @@ plus
 slur
 
 lust
-slut
 
 zulu
 
@@ -6762,7 +6740,6 @@ carpi
 
 aspic
 picas
-spica
 
 auric
 curia
@@ -10046,7 +10023,6 @@ sways
 sutta
 tauts
 
-twats
 watts
 
 tasty
@@ -10532,7 +10508,6 @@ umber
 
 benny
 
-boner
 borne
 
 bones
@@ -11014,8 +10989,6 @@ cluck
 
 crock
 
-cocks
-
 cocky
 
 cyclo
@@ -11118,8 +11091,6 @@ chord
 dutch
 
 duchy
-
-dicks
 
 dicky
 
@@ -11576,8 +11547,6 @@ flock
 
 frock
 
-fucks
-
 comfy
 
 croft
@@ -11867,8 +11836,6 @@ scrip
 pricy
 pyric
 
-spics
-
 spicy
 
 typic
@@ -12038,8 +12005,6 @@ uncos
 count
 
 syncs
-
-cunts
 
 uncut
 
@@ -12479,7 +12444,6 @@ piked
 diker
 irked
 
-dikes
 skied
 
 kited
@@ -12642,7 +12606,6 @@ tsked
 
 dukes
 
-dykes
 skyed
 
 dells
@@ -14218,8 +14181,6 @@ throe
 
 hover
 
-whore
-
 hoses
 shoes
 
@@ -14272,8 +14233,6 @@ issei
 ivies
 
 jives
-
-kikes
 
 inkle
 liken
@@ -16185,7 +16144,6 @@ whirs
 
 hists
 shist
-shits
 
 shivs
 
@@ -17222,7 +17180,6 @@ truly
 wryly
 
 lusts
-sluts
 
 lusty
 
@@ -17533,8 +17490,6 @@ usurp
 
 pursy
 syrup
-
-pussy
 
 putts
 
@@ -20700,7 +20655,6 @@ scotia
 piracy
 
 aspics
-spicas
 
 tipcat
 
@@ -24371,8 +24325,6 @@ staffs
 
 flaggy
 
-faggot
-
 faking
 
 faming
@@ -27313,8 +27265,6 @@ borneo
 
 reborn
 
-boners
-
 breton
 
 bourne
@@ -28050,8 +28000,6 @@ cuffed
 deific
 
 coifed
-
-fucked
 
 fecund
 
@@ -28937,7 +28885,6 @@ spicer
 pricey
 
 pisces
-spices
 
 septic
 
@@ -33811,14 +33758,11 @@ jiggle
 
 jigger
 
-niggle
-
 loggie
 
 wiggle
 
 ginger
-nigger
 
 rigger
 
@@ -34537,7 +34481,6 @@ shover
 shrove
 
 shower
-whores
 
 horsey
 
@@ -40931,8 +40874,6 @@ bracket
 
 setback
 
-wetback
-
 cembalo
 
 clamber
@@ -46624,7 +46565,6 @@ danging
 goading
 
 grading
-niggard
 
 hidalgo
 
@@ -48750,8 +48690,6 @@ shoaler
 loather
 rathole
 
-asshole
-
 loathes
 
 plasher
@@ -50482,8 +50420,6 @@ affront
 payoffs
 
 fagging
-
-faggots
 
 hagfish
 
@@ -52935,8 +52871,6 @@ ribbons
 robbins
 
 ribbony
-
-blowjob
 
 bulbuls
 
@@ -57825,8 +57759,6 @@ scruffy
 
 coifing
 
-fucking
-
 forcing
 
 cowfish
@@ -60036,7 +59968,6 @@ jiggled
 kedging
 
 gelding
-niggled
 
 wiggled
 
@@ -60397,8 +60328,6 @@ writhed
 dithery
 
 swished
-
-shitted
 
 whisted
 
@@ -64222,11 +64151,7 @@ jiggers
 
 gelling
 
-niggler
-
 leggins
-niggles
-sniggle
 
 glueing
 
@@ -64248,9 +64173,7 @@ ginseng
 venging
 
 gingers
-niggers
 serging
-snigger
 
 verging
 
@@ -74174,8 +74097,6 @@ brackets
 
 setbacks
 
-wetbacks
-
 campbell
 
 closable
@@ -81982,8 +81903,6 @@ dragging
 hangdogs
 
 dangling
-
-niggards
 
 guarding
 
@@ -91005,8 +90924,6 @@ billhook
 hornbill
 
 bullwhip
-
-bullshit
 
 horribly
 
@@ -102293,8 +102210,6 @@ ginkgoes
 
 gentling
 
-nigglers
-
 grueling
 regluing
 
@@ -102320,7 +102235,6 @@ rogueing
 grungier
 
 sergings
-sniggers
 
 guessing
 
@@ -105607,8 +105521,6 @@ goggling
 
 jiggling
 
-niggling
-
 wiggling
 
 riggings
@@ -105843,7 +105755,6 @@ insights
 
 swishing
 
-shitting
 tithings
 
 whisting
@@ -117377,7 +117288,6 @@ forwarded
 dialogged
 
 degrading
-niggarded
 
 hagridden
 
@@ -119312,8 +119222,6 @@ frontward
 draggling
 
 hagriding
-
-niggardly
 
 dognaping
 
@@ -123451,8 +123359,6 @@ flatfoots
 
 flaggings
 
-faggoting
-
 fraggings
 
 finagling
@@ -126921,8 +126827,6 @@ thumbkins
 hornbills
 
 bullwhips
-
-bullshits
 
 bimonthly
 
@@ -131937,8 +131841,6 @@ hedgepigs
 
 gendering
 
-sniggered
-
 triggered
 
 dreggiest
@@ -136771,8 +136673,6 @@ groveling
 
 glowering
 
-snigglers
-
 gruelings
 
 geologist
@@ -139025,9 +138925,6 @@ rustproof
 pussyfoot
 
 shrugging
-
-nigglings
-sniggling
 
 wriggling
 
@@ -150149,8 +150046,6 @@ manifoldly
 floodplain
 
 foundation
-
-niggarding
 
 draughting
 
@@ -161836,8 +161731,6 @@ professors
 
 fourposter
 
-sniggering
-
 triggering
 
 grogginess
@@ -163064,8 +162957,6 @@ footstools
 pussyfoots
 
 gigglingly
-
-nigglingly
 
 squiggling
 
@@ -191337,8 +191228,6 @@ mournfulness
 
 trustfulness
 
-sniggeringly
-
 lightweights
 
 pigeonholing
@@ -195952,8 +195841,6 @@ untransformed
 hydrogenating
 
 disentangling
-
-niggardliness
 
 deprogramming
 
