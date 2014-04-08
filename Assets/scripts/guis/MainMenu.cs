@@ -23,6 +23,8 @@ public class MainMenu : Gui {
 	private GUIStyle StatsStyle;
 	private GUIStyle StatsLabelStyle;
 
+	private Scores scores;
+
 	public MainMenu(){
 
 		TitleRect = new Rect(0, 0, Main.NativeWidth, (Main.NativeHeight / 6) * 2);
@@ -64,6 +66,8 @@ public class MainMenu : Gui {
 		StatsLabelStyle.normal.textColor = LabelColor;
 		StatsLabelStyle.alignment = TextAnchor.MiddleLeft;
 
+		scores = new Scores(WordOptions.Difficulty.Easy);
+
 	}
 
 	public override void OnGUI(){
@@ -78,12 +82,12 @@ public class MainMenu : Gui {
 
 		GUI.Label(EasyRect, "EASY", MenuDifficultyStyle);
 		Utils.DrawRectangle(EasyRect, 50, Color.black);
-		if(Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Easy)){
+		if(scores.HasLifetime(WordOptions.Difficulty.Easy)){
 			GUI.Label(EasyScoreRect, "Best Total", StatsLabelStyle);
 			GUI.Label(EasyAverageRect, "Best Average", StatsLabelStyle);
 
-			GUI.Label(EasyScoreRect, Main.LifetimeScores[WordOptions.Difficulty.Easy].ToString(), StatsStyle);
-			GUI.Label(EasyAverageRect, Main.LifetimeAverages[WordOptions.Difficulty.Easy].ToString("0.0"), StatsStyle);
+			GUI.Label(EasyScoreRect, scores.LifetimeScore(WordOptions.Difficulty.Easy).ToString(), StatsStyle);
+			GUI.Label(EasyAverageRect, scores.LifetimeAverage(WordOptions.Difficulty.Easy).ToString("0.0"), StatsStyle);
 		}
 
 		if(Main.Clicked && EasyRect.Contains(Main.TouchGuiLocation)){
@@ -92,12 +96,12 @@ public class MainMenu : Gui {
 
 		GUI.Label(MediumRect, "MEDIUM", MenuDifficultyStyle);
 		Utils.DrawRectangle(MediumRect, 50, Color.black);
-		if(Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Medium)){
+		if(scores.HasLifetime(WordOptions.Difficulty.Medium)){
 			GUI.Label(MediumScoreRect, "Best Total", StatsLabelStyle);
 			GUI.Label(MediumAverageRect, "Best Average", StatsLabelStyle);
 
-			GUI.Label(MediumScoreRect, Main.LifetimeScores[WordOptions.Difficulty.Medium].ToString(), StatsStyle);
-			GUI.Label(MediumAverageRect, Main.LifetimeAverages[WordOptions.Difficulty.Medium].ToString("0.0"), StatsStyle);
+			GUI.Label(MediumScoreRect, scores.LifetimeScore(WordOptions.Difficulty.Medium).ToString(), StatsStyle);
+			GUI.Label(MediumAverageRect, scores.LifetimeAverage(WordOptions.Difficulty.Medium).ToString("0.0"), StatsStyle);
 		}
 
 		if(Main.Clicked && MediumRect.Contains(Main.TouchGuiLocation)){
@@ -106,12 +110,12 @@ public class MainMenu : Gui {
 
 		GUI.Label(HardRect, "HARD", MenuDifficultyStyle);
 		Utils.DrawRectangle(HardRect, 50, Color.black);
-		if(Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Hard)){
+		if(scores.HasLifetime(WordOptions.Difficulty.Hard)){
 			GUI.Label(HardScoreRect, "Best Total", StatsLabelStyle);
 			GUI.Label(HardAverageRect, "Best Average", StatsLabelStyle);
 
-			GUI.Label(HardScoreRect, Main.LifetimeScores[WordOptions.Difficulty.Hard].ToString(), StatsStyle);
-			GUI.Label(HardAverageRect, Main.LifetimeAverages[WordOptions.Difficulty.Hard].ToString("0.0"), StatsStyle);
+			GUI.Label(HardScoreRect, scores.LifetimeScore(WordOptions.Difficulty.Hard).ToString(), StatsStyle);
+			GUI.Label(HardAverageRect, scores.LifetimeAverage(WordOptions.Difficulty.Hard).ToString("0.0"), StatsStyle);
 		}
 
 		if(Main.Clicked && HardRect.Contains(Main.TouchGuiLocation)){

@@ -32,9 +32,6 @@ public class Main : MonoBehaviour {
 	public static Dictionary<int,List<string>> WordsBySize;
 	public static List<List<string>> AnagramLists;
 
-	public static Dictionary<WordOptions.Difficulty, float> LifetimeScores;
-	public static Dictionary<WordOptions.Difficulty, float> LifetimeAverages;
-
 	private static Gui currentGui;
 
 	public void Start () {
@@ -79,19 +76,6 @@ public class Main : MonoBehaviour {
 		LetteralStyle.fontSize = Main.FontLargest;
 		LetteralStyle.normal.textColor = Color.yellow;
 		LetteralStyle.alignment = TextAnchor.UpperCenter;
-
-		LifetimeScores = new Dictionary<WordOptions.Difficulty, float>();
-		LifetimeAverages = new Dictionary<WordOptions.Difficulty, float>();
-
-		foreach(WordOptions.Difficulty difficulty in WordOptions.Difficulty.GetValues(typeof(WordOptions.Difficulty))) {
-			if( PlayerPrefs.HasKey(LifetimeScoreName(difficulty))) {
-				LifetimeScores.Add(difficulty, PlayerPrefs.GetFloat(LifetimeScoreName(difficulty)));
-			}
-
-			if( PlayerPrefs.HasKey(LifetimeAverageName(difficulty))) {
-				LifetimeAverages.Add(difficulty, PlayerPrefs.GetFloat(LifetimeAverageName(difficulty)));
-			}
-		}
 		
 		currentGui = new Intro();
 		
@@ -124,14 +108,6 @@ public class Main : MonoBehaviour {
 	public static Vector2 TouchLocationToGuiLocation (Vector2 touchLocation)
 	{
 		return new Vector2 (touchLocation.x, NativeHeight - touchLocation.y);
-	}
-
-	public static string LifetimeScoreName(WordOptions.Difficulty difficulty) {
-		return difficulty.ToString() + "Score";
-	}
-
-	public static string LifetimeAverageName(WordOptions.Difficulty difficulty) {
-		return difficulty.ToString() + "Average";
 	}
 
 }

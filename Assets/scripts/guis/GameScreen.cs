@@ -43,14 +43,12 @@ public class GameScreen : Gui {
 	private List<string> currentOptions;
 	private float wordStartTime = -ShiftSeconds;
 	private List<Letteral> letterals;
-	private float sessionScore;
-	private float sessionAverage;
-	private int sessionCount;
 	private string guessedOption;
-	private float lastScoreImpact;
 
 	private float sessionLowerBoundsTime;
 	private float sessionStartTime;
+
+	private Scores score;
 
 	public GameScreen(WordOptions.Difficulty difficulty){
 
@@ -113,6 +111,8 @@ public class GameScreen : Gui {
 
 		this.difficulty = difficulty;
 
+		score = new Scores(this.difficulty);
+
 		resetSession();
 	}
 
@@ -149,9 +149,11 @@ public class GameScreen : Gui {
 
 				if(Main.Clicked && rect.Contains(Main.TouchGuiLocation)) {
 					guessedOption = currentOptions[i];
-					lastScoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - wordStartTime)) / ShiftSeconds));
-					lastScoreImpact = guessedOption == currentWord? lastScoreImpact : -lastScoreImpact;
-					changeSessionScoreBy(lastScoreImpact);
+					float scoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - wordStartTime)) / ShiftSeconds));
+					scoreImpact = guessedOption == currentWord? scoreImpact : -scoreImpact;
+					score.ScorePoints(scoreImpact);
+					sessionLowerBoundsTime += PointsToTimeConversion * scoreImpact;
+					sessionLowerBoundsTime = Mathf.Min(sessionLowerBoundsTime, Time.time + (ShiftSeconds / 2));
 					resetWord();
 				}
 
@@ -164,7 +166,7 @@ public class GameScreen : Gui {
 			}
 
 			if(Time.time - sessionLowerBoundsTime > BeginningSeconds){
-				checkForLifetimeRecords();
+				score.CheckForLifetimeRecords();
 				sessionStartTime = 0;
 			}
 
@@ -174,9 +176,9 @@ public class GameScreen : Gui {
 		GUI.Label(SessionAverageLabelRect, "average", SessionScoreLabelStyle);
 		GUI.Label(PhaseScoreImpactLabelRect, "last word", SessionScoreLabelStyle);
 
-		GUI.Label(SessionScoreRect, sessionScore.ToString("0"), SessionScoreStyle);
-		GUI.Label(SessionAverageRect, sessionAverage.ToString("0.0"), SessionScoreStyle);
-		GUI.Label(PhaseScoreImpactRect, lastScoreImpact.ToString("0"), SessionScoreStyle);
+		GUI.Label(SessionScoreRect, score.SessionScore.ToString("0"), SessionScoreStyle);
+		GUI.Label(SessionAverageRect, score.SessionAverage.ToString("0.0"), SessionScoreStyle);
+		GUI.Label(PhaseScoreImpactRect, score.LastScoreImpact.ToString("0"), SessionScoreStyle);
 
 		GUI.Label(BackRect, "BACK", BackStyle);
 		Utils.DrawRectangle(BackRect, 50, Color.black);
@@ -187,12 +189,8 @@ public class GameScreen : Gui {
 	}
 
 	private void resetSession(){
-		sessionScore = 0f;
-		sessionAverage = 0f;
-		sessionCount = 0;
-		lastScoreImpact = 0;
-
 		sessionStartTime = 0;
+		score.ResetSession();
 	}
 
 	private void resetWord(){
@@ -200,45 +198,6 @@ public class GameScreen : Gui {
 		currentOptions = WordOptions.GetStrings(this.difficulty);
 		currentWord = currentOptions[(int) (currentOptions.Count * Random.value)];
 		letterals = LetteralGenerator.GenerateLetterals(currentWord);
-	}
-
-	private void changeSessionScoreBy(float change){
-		sessionScore += change;
-		sessionAverage = ((sessionAverage * sessionCount) + (change)) / (sessionCount + 1f);
-		sessionCount++;
-		sessionLowerBoundsTime += PointsToTimeConversion * change;
-		sessionLowerBoundsTime = Mathf.Min(sessionLowerBoundsTime, Time.time + (ShiftSeconds / 2));
-	}
-
-	private void checkForLifetimeRecords(){
-		if(this.difficulty == WordOptions.Difficulty.Easy){
-			if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Easy) || Main.LifetimeScores[WordOptions.Difficulty.Easy] < sessionScore){
-				Main.LifetimeScores[WordOptions.Difficulty.Easy] = sessionScore;
-				PlayerPrefs.SetFloat(Main.LifetimeScoreName(this.difficulty), sessionScore);
-			}
-			if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Easy) || Main.LifetimeAverages[WordOptions.Difficulty.Easy] < sessionAverage){
-				Main.LifetimeAverages[WordOptions.Difficulty.Easy] = sessionAverage;
-				PlayerPrefs.SetFloat(Main.LifetimeAverageName(this.difficulty), sessionAverage);
-			}
-		} else if(this.difficulty == WordOptions.Difficulty.Medium){
-			if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Medium) || Main.LifetimeScores[WordOptions.Difficulty.Medium] < sessionScore){
-				Main.LifetimeScores[WordOptions.Difficulty.Medium] = sessionScore;
-				PlayerPrefs.SetFloat(Main.LifetimeScoreName(this.difficulty), sessionScore);
-			}
-			if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Medium) || Main.LifetimeAverages[WordOptions.Difficulty.Medium] < sessionAverage){
-				Main.LifetimeAverages[WordOptions.Difficulty.Medium] = sessionAverage;
-				PlayerPrefs.SetFloat(Main.LifetimeAverageName(this.difficulty), sessionAverage);
-			}
-		} else if (this.difficulty == WordOptions.Difficulty.Hard){
-			if(!Main.LifetimeScores.ContainsKey(WordOptions.Difficulty.Hard) || Main.LifetimeScores[WordOptions.Difficulty.Hard] < sessionScore){
-				Main.LifetimeScores[WordOptions.Difficulty.Hard] = sessionScore;
-				PlayerPrefs.SetFloat(Main.LifetimeScoreName(this.difficulty), sessionScore);
-			}
-			if(!Main.LifetimeAverages.ContainsKey(WordOptions.Difficulty.Hard) || Main.LifetimeAverages[WordOptions.Difficulty.Hard] < sessionAverage){
-				Main.LifetimeAverages[WordOptions.Difficulty.Hard] = sessionAverage;
-				PlayerPrefs.SetFloat(Main.LifetimeAverageName(this.difficulty), sessionAverage);
-			}
-		}
 	}
 
 }
