@@ -10,37 +10,22 @@ public class MainMenu : Gui {
 	private Rect EasyRect;
 	private Rect MediumRect;
 	private Rect HardRect;
-	private Rect EasyScoreRect;
-	private Rect MediumScoreRect;
-	private Rect HardScoreRect;
-	private Rect EasyAverageRect;
-	private Rect MediumAverageRect;
-	private Rect HardAverageRect;
+	private Rect ScoresRect;
 
 	private GUIStyle TitleStyle;
 	private GUIStyle ExitStyle;
 	private GUIStyle MenuDifficultyStyle;
-	private GUIStyle StatsStyle;
-	private GUIStyle StatsLabelStyle;
-
-	private Scores scores;
+	private GUIStyle ScoresStyle;
 
 	public MainMenu(){
 
-		TitleRect = new Rect(0, 0, Main.NativeWidth, (Main.NativeHeight / 6) * 2);
+		TitleRect = new Rect(0, 0, Main.NativeWidth, (Main.NativeHeight / 8) * 2);
 		ExitRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
-		EasyRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * 2) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, (Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f));
-		MediumRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * 3) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, (Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f));
-		HardRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * 4) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, (Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f));
+		EasyRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 2) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
+		MediumRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 3) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
+		HardRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 4) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
+		ScoresRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 6) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
 		
-		EasyScoreRect = new Rect(((Main.NativeWidth - (Main.NativeWidth * 0.05f)) / 2) + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * 2) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, ((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2);
-		MediumScoreRect = new Rect(((Main.NativeWidth - (Main.NativeWidth * 0.05f)) / 2) + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * 3) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, ((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2);
-		HardScoreRect = new Rect(((Main.NativeWidth - (Main.NativeWidth * 0.05f)) / 2) + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * 4) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, ((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2);
-
-		EasyAverageRect = new Rect(((Main.NativeWidth - (Main.NativeWidth * 0.05f)) / 2) + (Main.NativeWidth * 0.05f), (((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2) + ((Main.NativeHeight / 6f) * 2) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, ((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2);
-		MediumAverageRect = new Rect(((Main.NativeWidth - (Main.NativeWidth * 0.05f)) / 2) + (Main.NativeWidth * 0.05f), (((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2) + ((Main.NativeHeight / 6f) * 3) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, ((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2);
-		HardAverageRect = new Rect(((Main.NativeWidth - (Main.NativeWidth * 0.05f)) / 2) + (Main.NativeWidth * 0.05f), (((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2) + ((Main.NativeHeight / 6f) * 4) + (Main.NativeWidth * 0.025f), (Main.NativeWidth - (Main.NativeWidth * 0.1f)) / 2, ((Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f)) / 2);
-
 		TitleStyle = new GUIStyle();
 		TitleStyle.fontSize = Main.FontLargest * 2;
 		TitleStyle.normal.textColor = Color.black;
@@ -56,17 +41,10 @@ public class MainMenu : Gui {
 		MenuDifficultyStyle.normal.textColor = NavyBlue;
 		MenuDifficultyStyle.alignment = TextAnchor.MiddleCenter;
 
-		StatsStyle = new GUIStyle();
-		StatsStyle.fontSize = Main.FontLarge;
-		StatsStyle.normal.textColor = Color.black;
-		StatsStyle.alignment = TextAnchor.MiddleRight;
-
-		StatsLabelStyle = new GUIStyle();
-		StatsLabelStyle.fontSize = Main.FontMedium;
-		StatsLabelStyle.normal.textColor = LabelColor;
-		StatsLabelStyle.alignment = TextAnchor.MiddleLeft;
-
-		scores = new Scores(WordOptions.Difficulty.Easy);
+		ScoresStyle = new GUIStyle();
+		ScoresStyle.fontSize = Main.FontLarge;
+		ScoresStyle.normal.textColor = NavyBlue;
+		ScoresStyle.alignment = TextAnchor.MiddleCenter;
 
 	}
 
@@ -82,13 +60,6 @@ public class MainMenu : Gui {
 
 		GUI.Label(EasyRect, "EASY", MenuDifficultyStyle);
 		Utils.DrawRectangle(EasyRect, 50, Color.black);
-		if(scores.HasLifetime(WordOptions.Difficulty.Easy)){
-			GUI.Label(EasyScoreRect, "Best Total", StatsLabelStyle);
-			GUI.Label(EasyAverageRect, "Best Average", StatsLabelStyle);
-
-			GUI.Label(EasyScoreRect, scores.LifetimeScore(WordOptions.Difficulty.Easy).ToString(), StatsStyle);
-			GUI.Label(EasyAverageRect, scores.LifetimeAverage(WordOptions.Difficulty.Easy).ToString("0.0"), StatsStyle);
-		}
 
 		if(Main.Clicked && EasyRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Easy));
@@ -96,13 +67,6 @@ public class MainMenu : Gui {
 
 		GUI.Label(MediumRect, "MEDIUM", MenuDifficultyStyle);
 		Utils.DrawRectangle(MediumRect, 50, Color.black);
-		if(scores.HasLifetime(WordOptions.Difficulty.Medium)){
-			GUI.Label(MediumScoreRect, "Best Total", StatsLabelStyle);
-			GUI.Label(MediumAverageRect, "Best Average", StatsLabelStyle);
-
-			GUI.Label(MediumScoreRect, scores.LifetimeScore(WordOptions.Difficulty.Medium).ToString(), StatsStyle);
-			GUI.Label(MediumAverageRect, scores.LifetimeAverage(WordOptions.Difficulty.Medium).ToString("0.0"), StatsStyle);
-		}
 
 		if(Main.Clicked && MediumRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Medium));
@@ -110,16 +74,16 @@ public class MainMenu : Gui {
 
 		GUI.Label(HardRect, "HARD", MenuDifficultyStyle);
 		Utils.DrawRectangle(HardRect, 50, Color.black);
-		if(scores.HasLifetime(WordOptions.Difficulty.Hard)){
-			GUI.Label(HardScoreRect, "Best Total", StatsLabelStyle);
-			GUI.Label(HardAverageRect, "Best Average", StatsLabelStyle);
-
-			GUI.Label(HardScoreRect, scores.LifetimeScore(WordOptions.Difficulty.Hard).ToString(), StatsStyle);
-			GUI.Label(HardAverageRect, scores.LifetimeAverage(WordOptions.Difficulty.Hard).ToString("0.0"), StatsStyle);
-		}
 
 		if(Main.Clicked && HardRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Hard));
+		}
+
+		GUI.Label(ScoresRect, "HIGH SCORES", ScoresStyle);
+		Utils.DrawRectangle(ScoresRect, 50, Color.black);
+
+		if(Main.Clicked && ScoresRect.Contains(Main.TouchGuiLocation)){
+			Main.SetGui(new HighScores());
 		}
 	}
 
