@@ -1,8 +1,9 @@
-high score reset with hard to push confirmation
 transitions between scenes
 stylizing
+visual bells and whistles
 
 ???
+high score reset with hard to push confirmation
 show ads after session ends
 web high scores
 streak bonuses
