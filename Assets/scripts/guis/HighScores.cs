@@ -29,10 +29,6 @@ public class HighScores : Gui {
 		MediumLabelRect = new Rect(EasyLabelRect.x, EasyLabelRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyLabelRect.height);
 		HighLabelRect = new Rect(EasyLabelRect.x, MediumLabelRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyLabelRect.height);
 
-		// EasyScoreRect = new Rect(EasyLabelRect.x, EasyLabelRect.y + (Main.NativeHeight / 20f), EasyLabelRect.width, EasyLabelRect.height - (Main.NativeHeight / 10f));
-		// MediumScoreRect = new Rect(EasyLabelRect.x, EasyScoreRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyScoreRect.height);
-		// HardScoreRect = new Rect(EasyLabelRect.x, MediumScoreRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyScoreRect.height);
-
 		BackStyle = new GUIStyle();
 		BackStyle.fontSize = Main.FontLarge;
 		BackStyle.normal.textColor = Color.black;
@@ -69,13 +65,37 @@ public class HighScores : Gui {
 		GUI.Label(MediumLabelRect, "MEDIUM", DifficultyLabelStyle);
 		GUI.Label(HighLabelRect, "HIGH", DifficultyLabelStyle);
 
-		GUI.Label(EasyLabelRect, "\n" + scores.LifetimeScore(WordOptions.Difficulty.Easy).ToString("0"), DifficultyScoreStyle);
-		GUI.Label(MediumLabelRect, "\n" + scores.LifetimeScore(WordOptions.Difficulty.Medium).ToString("0"), DifficultyScoreStyle);
-		GUI.Label(HighLabelRect, "\n" + scores.LifetimeScore(WordOptions.Difficulty.Hard).ToString("0"), DifficultyScoreStyle);
+		string displayString = "";
+		foreach(int score in scores.LifetimeScores(WordOptions.Difficulty.Easy)){
+			displayString += "\n" + score.ToString("0");
+		}
+		GUI.Label(EasyLabelRect, displayString, DifficultyScoreStyle);
+		displayString = "";
+		foreach(int score in scores.LifetimeScores(WordOptions.Difficulty.Medium)){
+			displayString += "\n" + score.ToString("0");
+		}
+		GUI.Label(MediumLabelRect, displayString, DifficultyScoreStyle);
+		displayString = "";
+		foreach(int score in scores.LifetimeScores(WordOptions.Difficulty.Hard)){
+			displayString += "\n" + score.ToString("0");
+		}
+		GUI.Label(HighLabelRect, displayString, DifficultyScoreStyle);
 
-		GUI.Label(EasyLabelRect, "\n" + scores.LifetimeAverage(WordOptions.Difficulty.Easy).ToString("0.0"), DifficultyAverageStyle);
-		GUI.Label(MediumLabelRect, "\n" + scores.LifetimeAverage(WordOptions.Difficulty.Medium).ToString("0.0"), DifficultyAverageStyle);
-		GUI.Label(HighLabelRect, "\n" + scores.LifetimeAverage(WordOptions.Difficulty.Hard).ToString("0.0"), DifficultyAverageStyle);
+		displayString = "";
+		foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Easy)){
+			displayString += "\n" + average.ToString("0.0");
+		}
+		GUI.Label(EasyLabelRect, displayString, DifficultyAverageStyle);
+		displayString = "";
+		foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Medium)){
+			displayString += "\n" + average.ToString("0");
+		}
+		GUI.Label(MediumLabelRect, displayString, DifficultyAverageStyle);
+		displayString = "";
+		foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Hard)){
+			displayString += "\n" + average.ToString("0.0");
+		}
+		GUI.Label(HighLabelRect, displayString, DifficultyAverageStyle);
 		
 	}
 

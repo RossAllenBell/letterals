@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 public class Scores {
 
-	private Dictionary<WordOptions.Difficulty, float> lifetimeScores;
-	private Dictionary<WordOptions.Difficulty, float> lifetimeAverages;
+	public const int ScoreHistory = 5;
+
+	private Dictionary<WordOptions.Difficulty, List<float>> lifetimeScores;
+	private Dictionary<WordOptions.Difficulty, List<float>> lifetimeAverages;
 
 	public float LastScoreImpact { get { return lastScoreImpact; } }
 	public float SessionScore { get { return sessionScore; } }
@@ -18,16 +20,21 @@ public class Scores {
 	private int sessionCount;
 
 	public Scores(WordOptions.Difficulty sessionDifficulty){
-		lifetimeScores = new Dictionary<WordOptions.Difficulty, float>();
-		lifetimeAverages = new Dictionary<WordOptions.Difficulty, float>();
+		lifetimeScores = new Dictionary<WordOptions.Difficulty, List<float>>();
+		lifetimeAverages = new Dictionary<WordOptions.Difficulty, List<float>>();
 
 		foreach(WordOptions.Difficulty difficulty in WordOptions.Difficulty.GetValues(typeof(WordOptions.Difficulty))) {
-			if( PlayerPrefs.HasKey(LifetimeScoreName(difficulty))) {
-				lifetimeScores.Add(difficulty, PlayerPrefs.GetFloat(LifetimeScoreName(difficulty)));
-			}
+			lifetimeScores.Add(difficulty, new List<float>());
+			lifetimeAverages.Add(difficulty, new List<float>());
 
-			if( PlayerPrefs.HasKey(LifetimeAverageName(difficulty))) {
-				lifetimeAverages.Add(difficulty, PlayerPrefs.GetFloat(LifetimeAverageName(difficulty)));
+			for(int i=0; i<ScoreHistory; i++){
+				if( PlayerPrefs.HasKey(LifetimeScoreName(difficulty, i)) ) {
+					lifetimeScores[difficulty].Add(PlayerPrefs.GetFloat(LifetimeScoreName(difficulty, i)));
+				}
+
+				if( PlayerPrefs.HasKey(LifetimeAverageName(difficulty, i)) ) {
+					lifetimeAverages[difficulty].Add(PlayerPrefs.GetFloat(LifetimeAverageName(difficulty, i)));
+				}
 			}
 		}
 
@@ -53,34 +60,45 @@ public class Scores {
 	}
 
 	public void CheckForLifetimeRecords(){
-		if(!lifetimeScores.ContainsKey(this.sessionDifficulty) || lifetimeScores[this.sessionDifficulty] < sessionScore){
-			lifetimeScores[this.sessionDifficulty] = sessionScore;
-			PlayerPrefs.SetFloat(LifetimeScoreName(this.sessionDifficulty), sessionScore);
+		lifetimeScores[this.sessionDifficulty].Add(sessionScore);
+		lifetimeScores[this.sessionDifficulty].Sort();
+		lifetimeScores[this.sessionDifficulty].Reverse();
+		while(lifetimeScores[this.sessionDifficulty].Count > 5) {
+			lifetimeScores[this.sessionDifficulty].RemoveAt(5);
 		}
-		if(!lifetimeAverages.ContainsKey(this.sessionDifficulty) || lifetimeAverages[this.sessionDifficulty] < sessionAverage){
-			lifetimeAverages[this.sessionDifficulty] = sessionAverage;
-			PlayerPrefs.SetFloat(LifetimeAverageName(this.sessionDifficulty), sessionAverage);
+		for(int i=0; i<lifetimeScores[this.sessionDifficulty].Count; i++) {
+			PlayerPrefs.SetFloat(LifetimeScoreName(this.sessionDifficulty, i), lifetimeScores[this.sessionDifficulty][i]);
+		}
+
+		lifetimeAverages[this.sessionDifficulty].Add(sessionAverage);
+		lifetimeAverages[this.sessionDifficulty].Sort();
+		lifetimeAverages[this.sessionDifficulty].Reverse();
+		while(lifetimeAverages[this.sessionDifficulty].Count > 5) {
+			lifetimeAverages[this.sessionDifficulty].RemoveAt(5);
+		}
+		for(int i=0; i<lifetimeAverages[this.sessionDifficulty].Count; i++) {
+			PlayerPrefs.SetFloat(LifetimeAverageName(this.sessionDifficulty, i), lifetimeAverages[this.sessionDifficulty][i]);
 		}
 	}
 
-	public bool HasLifetime(WordOptions.Difficulty difficulty){
-		return lifetimeScores.ContainsKey(difficulty);
-	}
+	// public bool HasLifetime(WordOptions.Difficulty difficulty){
+	// 	return lifetimeScores.ContainsKey(difficulty);
+	// }
 
-	public float LifetimeScore(WordOptions.Difficulty difficulty){
+	public List<float> LifetimeScores(WordOptions.Difficulty difficulty){
 		return lifetimeScores[difficulty];
 	}
 
-	public float LifetimeAverage(WordOptions.Difficulty difficulty){
+	public List<float> LifetimeAverages(WordOptions.Difficulty difficulty){
 		return lifetimeAverages[difficulty];
 	}
 
-	private static string LifetimeScoreName(WordOptions.Difficulty difficulty) {
-		return difficulty.ToString() + "Score";
+	private static string LifetimeScoreName(WordOptions.Difficulty difficulty, int place) {
+		return difficulty.ToString() + "Score" + place.ToString();
 	}
 
-	private static string LifetimeAverageName(WordOptions.Difficulty difficulty) {
-		return difficulty.ToString() + "Average";
+	private static string LifetimeAverageName(WordOptions.Difficulty difficulty, int place) {
+		return difficulty.ToString() + "Average" + place.ToString();
 	}
 
 }

@@ -1,4 +1,3 @@
-top 5 local high scores
 streak bonuses
 high score reset with hard to push confirmation
 transitions between scenes
