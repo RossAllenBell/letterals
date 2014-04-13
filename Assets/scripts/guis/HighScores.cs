@@ -17,7 +17,7 @@ public class HighScores : Gui {
 	private GUIStyle BackStyle;
 	private GUIStyle DifficultyLabelStyle;
 	private GUIStyle DifficultyScoreStyle;
-	private GUIStyle DifficultyAverageStyle;
+	// private GUIStyle DifficultyAverageStyle;
 
 	private Scores scores;
 
@@ -36,18 +36,18 @@ public class HighScores : Gui {
 
 		DifficultyLabelStyle = new GUIStyle();
 		DifficultyLabelStyle.fontSize = Main.FontLargest;
-		DifficultyLabelStyle.normal.textColor = Color.black;
+		DifficultyLabelStyle.normal.textColor = NavyBlue;
 		DifficultyLabelStyle.alignment = TextAnchor.UpperCenter;
 
 		DifficultyScoreStyle = new GUIStyle();
 		DifficultyScoreStyle.fontSize = Main.FontLargest;
 		DifficultyScoreStyle.normal.textColor = Color.black;
-		DifficultyScoreStyle.alignment = TextAnchor.UpperLeft;
+		DifficultyScoreStyle.alignment = TextAnchor.UpperCenter;
 
-		DifficultyAverageStyle = new GUIStyle();
-		DifficultyAverageStyle.fontSize = Main.FontLargest;
-		DifficultyAverageStyle.normal.textColor = Color.black;
-		DifficultyAverageStyle.alignment = TextAnchor.UpperRight;
+		// DifficultyAverageStyle = new GUIStyle();
+		// DifficultyAverageStyle.fontSize = Main.FontLargest;
+		// DifficultyAverageStyle.normal.textColor = Color.black;
+		// DifficultyAverageStyle.alignment = TextAnchor.UpperRight;
 
 		scores = new Scores(WordOptions.Difficulty.Easy);
 
@@ -81,21 +81,21 @@ public class HighScores : Gui {
 		}
 		GUI.Label(HighLabelRect, displayString, DifficultyScoreStyle);
 
-		displayString = "";
-		foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Easy)){
-			displayString += "\n" + average.ToString("0.0");
-		}
-		GUI.Label(EasyLabelRect, displayString, DifficultyAverageStyle);
-		displayString = "";
-		foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Medium)){
-			displayString += "\n" + average.ToString("0");
-		}
-		GUI.Label(MediumLabelRect, displayString, DifficultyAverageStyle);
-		displayString = "";
-		foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Hard)){
-			displayString += "\n" + average.ToString("0.0");
-		}
-		GUI.Label(HighLabelRect, displayString, DifficultyAverageStyle);
+		// displayString = "";
+		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Easy)){
+		// 	displayString += "\n" + average.ToString("0.0");
+		// }
+		// GUI.Label(EasyLabelRect, displayString, DifficultyAverageStyle);
+		// displayString = "";
+		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Medium)){
+		// 	displayString += "\n" + average.ToString("0");
+		// }
+		// GUI.Label(MediumLabelRect, displayString, DifficultyAverageStyle);
+		// displayString = "";
+		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Hard)){
+		// 	displayString += "\n" + average.ToString("0.0");
+		// }
+		// GUI.Label(HighLabelRect, displayString, DifficultyAverageStyle);
 		
 	}
 

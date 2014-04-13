@@ -137,11 +137,11 @@ public class GameScreen : Gui {
 			Rect sessionHealthPercentageRect = new Rect(0f, Main.NativeHeight * (sessionHealthPercentage), Main.NativeWidth, Main.NativeHeight * (1 - sessionHealthPercentage));
 			Utils.FillRectangle(sessionHealthPercentageRect, SessionHealthPercentageColor);
 
-			float phaseProgress = (Time.time - wordStartTime) / ShiftSeconds;
-			if(phaseProgress < 1f){
-				Rect phaseProgressBarRect = new Rect(0f,0f,Main.NativeWidth * phaseProgress,Main.NativeWidth*0.05f);
-				Utils.FillRectangle(phaseProgressBarRect, PhaseProgressBarColor);
-			}
+			// float phaseProgress = (Time.time - wordStartTime) / ShiftSeconds;
+			// if(phaseProgress < 1f){
+			// 	Rect phaseProgressBarRect = new Rect(0f,0f,Main.NativeWidth * phaseProgress,Main.NativeWidth*0.05f);
+			// 	Utils.FillRectangle(phaseProgressBarRect, PhaseProgressBarColor);
+			// }
 
 			for(int i=0; i<currentOptions.Count; i++){
 				Rect rect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * (i + 2)) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f));
