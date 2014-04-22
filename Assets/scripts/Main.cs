@@ -10,6 +10,7 @@ public class Main : MonoBehaviour {
     public static float GuiRatioHeight;
     public static int NativeWidth;
     public static int NativeHeight;
+    public static Vector2 GuiCenter;
     public static float VisibleBoardWidth;
 
     private const int NormalLargestFont = 300;
@@ -35,6 +36,8 @@ public class Main : MonoBehaviour {
 	private static Gui currentGui;
 
 	public void Start () {
+		Camera.main.backgroundColor = Colors.Background;
+
 		TextAsset wordsText = (TextAsset) Resources.Load("words");
 
 		AllWords = new List<string>();
@@ -63,6 +66,7 @@ public class Main : MonoBehaviour {
         
         NativeWidth = Screen.width;
         NativeHeight = Screen.height;
+        GuiCenter = new Vector2(Main.NativeWidth / 2f, Main.NativeHeight / 2f);
         
         GUIStyle testStyle = new GUIStyle();
         testStyle.fontSize = NormalLargestFont;
@@ -74,7 +78,7 @@ public class Main : MonoBehaviour {
 
 		LetteralStyle = new GUIStyle();
 		LetteralStyle.fontSize = Main.FontLargest;
-		LetteralStyle.normal.textColor = Color.yellow;
+		LetteralStyle.normal.textColor = Colors.ReadableText;
 		LetteralStyle.alignment = TextAnchor.UpperCenter;
 		
 		currentGui = new Intro();

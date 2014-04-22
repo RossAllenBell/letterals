@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Intro : Gui {
 
-	public static readonly Color NavyBlue = new Color(0, 34f/255, 171f/255);
-
 	private Rect NextRect;
 	private Rect IntroductionRect;
 
@@ -17,12 +15,12 @@ public class Intro : Gui {
 
 		NextStyle = new GUIStyle();
 		NextStyle.fontSize = Main.FontLarge;
-		NextStyle.normal.textColor = NavyBlue;
+		NextStyle.normal.textColor = Colors.ClickableText;
 		NextStyle.alignment = TextAnchor.MiddleCenter;
 
 		IntroductionStyle = new GUIStyle();
 		IntroductionStyle.fontSize = Main.FontLarge;
-		IntroductionStyle.normal.textColor = Color.black;
+		IntroductionStyle.normal.textColor = Colors.ReadableText;
 		IntroductionStyle.alignment = TextAnchor.MiddleCenter;
 		IntroductionStyle.wordWrap = true;
 
@@ -31,7 +29,7 @@ public class Intro : Gui {
 	public override void OnGUI(){
 
 		GUI.Label(NextRect, "ACKNOWLEDGE", NextStyle);
-		Utils.DrawRectangle(NextRect, 50, Color.black);
+		Utils.DrawRectangle(NextRect, 50, Colors.ButtonOutline);
 		if(Main.Clicked && NextRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new MainMenu());
 		}

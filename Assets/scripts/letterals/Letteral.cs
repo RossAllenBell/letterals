@@ -19,7 +19,7 @@ public class Letteral {
 	public void Update() {
 		float shiftDur = Mathf.Max(0, Mathf.Min((Time.time - startTime) - GameScreen.PreviewSeconds, GameScreen.ShiftSeconds));
 		Vector2 currentPos = startPos + ((endPos - startPos) * Mathf.Pow(shiftDur / GameScreen.ShiftSeconds, 0.6f));
-		Utils.DrawOutline(new Rect(currentPos.x, currentPos.y, width, 100), character, Main.LetteralStyle, 2, Color.blue);
+		Utils.DrawOutline(new Rect(currentPos.x, currentPos.y, width, 100), character, Main.LetteralStyle, 1);
 	}
 
 }

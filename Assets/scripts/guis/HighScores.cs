@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class HighScores : Gui {
 
-	public static readonly Color NavyBlue = new Color(0, 34f/255, 171f/255);
-
 	private Rect BackRect;
 
 	private Rect EasyLabelRect;
@@ -31,22 +29,22 @@ public class HighScores : Gui {
 
 		BackStyle = new GUIStyle();
 		BackStyle.fontSize = Main.FontLarge;
-		BackStyle.normal.textColor = Color.black;
+		BackStyle.normal.textColor = Colors.ClickableText;
 		BackStyle.alignment = TextAnchor.MiddleCenter;
 
 		DifficultyLabelStyle = new GUIStyle();
 		DifficultyLabelStyle.fontSize = Main.FontLargest;
-		DifficultyLabelStyle.normal.textColor = NavyBlue;
+		DifficultyLabelStyle.normal.textColor = Colors.ReadableText;
 		DifficultyLabelStyle.alignment = TextAnchor.UpperCenter;
 
 		DifficultyScoreStyle = new GUIStyle();
 		DifficultyScoreStyle.fontSize = Main.FontLargest;
-		DifficultyScoreStyle.normal.textColor = Color.black;
+		DifficultyScoreStyle.normal.textColor = Colors.ReadableText;
 		DifficultyScoreStyle.alignment = TextAnchor.UpperCenter;
 
 		// DifficultyAverageStyle = new GUIStyle();
 		// DifficultyAverageStyle.fontSize = Main.FontLargest;
-		// DifficultyAverageStyle.normal.textColor = Color.black;
+		// DifficultyAverageStyle.normal.textColor = Colors.ReadableText;
 		// DifficultyAverageStyle.alignment = TextAnchor.UpperRight;
 
 		scores = new Scores(WordOptions.Difficulty.Easy);
@@ -56,7 +54,7 @@ public class HighScores : Gui {
 	public override void OnGUI(){
 
 		GUI.Label(BackRect, "BACK", BackStyle);
-		Utils.DrawRectangle(BackRect, 50, Color.black);
+		Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new MainMenu());
 		}

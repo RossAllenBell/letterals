@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class MainMenu : Gui {
 
-	public static readonly Color NavyBlue = new Color(0, 34f/255, 171f/255);
-	public static readonly Color LabelColor = new Color(150/255, 150/255, 150/255, 200f/255);
-
 	private Rect ExitRect;
 	private Rect TitleRect;
 	private Rect EasyRect;
@@ -28,22 +25,22 @@ public class MainMenu : Gui {
 		
 		TitleStyle = new GUIStyle();
 		TitleStyle.fontSize = Main.FontLargest * 2;
-		TitleStyle.normal.textColor = Color.black;
+		TitleStyle.normal.textColor = Colors.ReadableText;
 		TitleStyle.alignment = TextAnchor.MiddleCenter;
 
 		ExitStyle = new GUIStyle();
 		ExitStyle.fontSize = Main.FontLarge;
-		ExitStyle.normal.textColor = Color.black;
+		ExitStyle.normal.textColor = Colors.ClickableText;
 		ExitStyle.alignment = TextAnchor.MiddleCenter;
 
 		MenuDifficultyStyle = new GUIStyle();
 		MenuDifficultyStyle.fontSize = Main.FontLargest;
-		MenuDifficultyStyle.normal.textColor = NavyBlue;
+		MenuDifficultyStyle.normal.textColor = Colors.ClickableText;
 		MenuDifficultyStyle.alignment = TextAnchor.MiddleCenter;
 
 		ScoresStyle = new GUIStyle();
 		ScoresStyle.fontSize = Main.FontLarge;
-		ScoresStyle.normal.textColor = NavyBlue;
+		ScoresStyle.normal.textColor = Colors.ClickableText;
 		ScoresStyle.alignment = TextAnchor.MiddleCenter;
 
 	}
@@ -51,36 +48,36 @@ public class MainMenu : Gui {
 	public override void OnGUI(){
 
 		GUI.Label(ExitRect, "EXIT", ExitStyle);
-		Utils.DrawRectangle(ExitRect, 50, Color.black);
+		Utils.DrawRectangle(ExitRect, 50, Colors.ButtonOutline);
 		if(Main.Clicked && ExitRect.Contains(Main.TouchGuiLocation)){
 			Application.Quit();
 		}
 		
-		GUI.Label(TitleRect, "LETTERALS", TitleStyle);
+		Utils.DrawOutline(TitleRect, "LETTERALS", TitleStyle, 2);
 
 		GUI.Label(EasyRect, "EASY", MenuDifficultyStyle);
-		Utils.DrawRectangle(EasyRect, 50, Color.black);
+		Utils.DrawRectangle(EasyRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && EasyRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Easy));
 		}
 
 		GUI.Label(MediumRect, "MEDIUM", MenuDifficultyStyle);
-		Utils.DrawRectangle(MediumRect, 50, Color.black);
+		Utils.DrawRectangle(MediumRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && MediumRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Medium));
 		}
 
 		GUI.Label(HardRect, "HARD", MenuDifficultyStyle);
-		Utils.DrawRectangle(HardRect, 50, Color.black);
+		Utils.DrawRectangle(HardRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && HardRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Hard));
 		}
 
 		GUI.Label(ScoresRect, "HIGH SCORES", ScoresStyle);
-		Utils.DrawRectangle(ScoresRect, 50, Color.black);
+		Utils.DrawRectangle(ScoresRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && ScoresRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new HighScores());
