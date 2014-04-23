@@ -47,37 +47,42 @@ public class MainMenu : Gui {
 
 	public override void OnGUI(){
 
+		// Utils.DrawRectangle(ExitRect, 50, Colors.ButtonOutline);
+		Utils.FillRectangle(ExitRect, Colors.ButtonBackground);
 		GUI.Label(ExitRect, "EXIT", ExitStyle);
-		Utils.DrawRectangle(ExitRect, 50, Colors.ButtonOutline);
 		if(Main.Clicked && ExitRect.Contains(Main.TouchGuiLocation)){
 			Application.Quit();
 		}
 		
 		Utils.DrawOutline(TitleRect, "LETTERALS", TitleStyle, 2);
 
+		// Utils.DrawRectangle(EasyRect, 50, Colors.ButtonOutline);
+		Utils.FillRectangle(EasyRect, Colors.ButtonBackground);
 		GUI.Label(EasyRect, "EASY", MenuDifficultyStyle);
-		Utils.DrawRectangle(EasyRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && EasyRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Easy));
 		}
 
+		// Utils.DrawRectangle(MediumRect, 50, Colors.ButtonOutline);
+		Utils.FillRectangle(MediumRect, Colors.ButtonBackground);
 		GUI.Label(MediumRect, "MEDIUM", MenuDifficultyStyle);
-		Utils.DrawRectangle(MediumRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && MediumRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Medium));
 		}
 
+		// Utils.DrawRectangle(HardRect, 50, Colors.ButtonOutline);
+		Utils.FillRectangle(HardRect, Colors.ButtonBackground);
 		GUI.Label(HardRect, "HARD", MenuDifficultyStyle);
-		Utils.DrawRectangle(HardRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && HardRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new GameScreen(WordOptions.Difficulty.Hard));
 		}
 
+		// Utils.DrawRectangle(ScoresRect, 50, Colors.ButtonOutline);
+		Utils.FillRectangle(ScoresRect, Colors.ButtonBackground);
 		GUI.Label(ScoresRect, "HIGH SCORES", ScoresStyle);
-		Utils.DrawRectangle(ScoresRect, 50, Colors.ButtonOutline);
 
 		if(Main.Clicked && ScoresRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new HighScores());

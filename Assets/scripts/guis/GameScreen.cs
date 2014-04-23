@@ -33,7 +33,7 @@ public class GameScreen : Gui {
 	private Rect PhaseScoreImpactLabelRect;
 	private Rect InstructionsRect;
 
-	public const string Instructions = "Letters will appear and slowly form a word. You will be presented with three options. Click on the option that matches the slowly forming word.\n\nChoosing the correct word will add more time to the round. Choosing an incorrect word will remove time. In either case, the faster you act, the greater the affect on time.";
+	public const string Instructions = "You will be presented with three options as Letterals slowly form a word. Click on the word that matches what the Letterals are forming to score points and extra time. An incorrect guess will deduct points and time.";
 
 	private WordOptions.Difficulty difficulty;
 	private string currentWord;
@@ -100,8 +100,9 @@ public class GameScreen : Gui {
 	public override void OnGUI(){
 
 		if (sessionStartTime == 0) {
+			// Utils.DrawRectangle(BeginRect, 50, Colors.ButtonOutline);
+			Utils.FillRectangle(BeginRect, Colors.ButtonBackground);
 			GUI.Label(BeginRect, "begin...", NextWordStyle);
-			Utils.DrawRectangle(BeginRect, 50, Colors.ButtonOutline);
 
 			GUI.Label(InstructionsRect, Instructions, InstructionsStyle);
 
@@ -132,8 +133,9 @@ public class GameScreen : Gui {
 					resetWord();
 				}
 
+				// Utils.DrawRectangle(rect, 50, Colors.ButtonOutline);
+				Utils.FillRectangle(rect, Colors.ButtonBackground);
 				GUI.Label(rect, currentOptions[i], OptionStyle);
-				Utils.DrawRectangle(rect, 50, Colors.ButtonOutline);
 			}
 
 			foreach(Letteral letteral in letterals){
@@ -155,8 +157,9 @@ public class GameScreen : Gui {
 		GUI.Label(SessionAverageRect, score.SessionAverage.ToString("0.0"), SessionScoreStyle);
 		GUI.Label(PhaseScoreImpactRect, score.LastScoreImpact.ToString("0"), SessionScoreStyle);
 
+		// Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
+		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
-		Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new MainMenu());
 		}

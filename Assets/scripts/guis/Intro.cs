@@ -28,13 +28,14 @@ public class Intro : Gui {
 
 	public override void OnGUI(){
 
+		// Utils.DrawRectangle(NextRect, 50, Colors.ButtonOutline);
+		Utils.FillRectangle(NextRect, Colors.ButtonBackground);
 		GUI.Label(NextRect, "ACKNOWLEDGE", NextStyle);
-		Utils.DrawRectangle(NextRect, 50, Colors.ButtonOutline);
 		if(Main.Clicked && NextRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new MainMenu());
 		}
 		
-		GUI.Label(IntroductionRect, "I've made an attempt to remove offensive words from the list of words used in this game. However, you should not play this game if you find any words offensive.", IntroductionStyle);
+		GUI.Label(IntroductionRect, "Don't play this game if you find any words offensive.", IntroductionStyle);
 	}
 
 }
