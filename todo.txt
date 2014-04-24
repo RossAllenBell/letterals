@@ -1,7 +1,8 @@
+fix last word score
+seperate instructions and game scenes
 rounded outline button images
 neon colored text
 logo/title image
-transitions between scenes
 
 ???
 high score reset with hard to push confirmation

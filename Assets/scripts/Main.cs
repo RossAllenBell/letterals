@@ -33,6 +33,8 @@ public class Main : MonoBehaviour {
 	public static Dictionary<int,List<string>> WordsBySize;
 	public static List<List<string>> AnagramLists;
 
+	private static Gui fadeTo;
+	private static float guiSwitchTime;
 	private static Gui currentGui;
 
 	public void Start () {
@@ -81,7 +83,7 @@ public class Main : MonoBehaviour {
 		LetteralStyle.normal.textColor = Colors.ReadableText;
 		LetteralStyle.alignment = TextAnchor.UpperCenter;
 		
-		currentGui = new Intro();
+		SetGui(new Intro());
 		
 	}
 	
@@ -101,12 +103,30 @@ public class Main : MonoBehaviour {
             touching = false;
         }
 
-        currentGui.OnGUI();
+        if (fadeTo == null) {
+        	currentGui.OnGUI();
+    	} else {
+    		if (Time.time - guiSwitchTime >= Gui.FadeOut) {
+    			GUI.color = new Color(1f, 1f, 1f, (Time.time - (guiSwitchTime + Gui.FadeOut)) / Gui.FadeIn);
+    			fadeTo.OnGUI();
+    			if (Time.time - (guiSwitchTime + Gui.FadeOut) > Gui.FadeIn){
+    				currentGui = fadeTo;
+    				fadeTo = null;
+    			}
+			} else {
+				GUI.color = new Color(1f, 1f, 1f, 1f - ((Time.time - guiSwitchTime)) / Gui.FadeOut);
+				currentGui.OnGUI();
+			}
+    	}
 
 	}
 
 	public static void SetGui(Gui gui) {
-		currentGui = gui;
+		guiSwitchTime = Time.time;
+		fadeTo = gui;
+		if(currentGui == null){
+			guiSwitchTime -= Gui.FadeOut;
+		}
 	}
 
 	public static Vector2 TouchLocationToGuiLocation (Vector2 touchLocation)

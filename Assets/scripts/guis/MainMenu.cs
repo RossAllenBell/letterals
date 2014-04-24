@@ -14,9 +14,6 @@ public class MainMenu : Gui {
 	private GUIStyle MenuDifficultyStyle;
 	private GUIStyle ScoresStyle;
 
-	private float startTime;
-	private float endTime;
-
 	public MainMenu(){
 
 		TitleRect = new Rect(0, 0, Main.NativeWidth, (Main.NativeHeight / 8) * 2);
@@ -46,15 +43,9 @@ public class MainMenu : Gui {
 		ScoresStyle.normal.textColor = Colors.ClickableText;
 		ScoresStyle.alignment = TextAnchor.MiddleCenter;
 
-		startTime = Time.time;
-
 	}
 
 	public override void OnGUI(){
-
-		if(Time.time - startTime < Gui.FadeIn) {
-			GUI.color = new Color(1f, 1f, 1f, (Time.time - startTime) / Gui.FadeIn);
-		}
 
 		// Utils.DrawRectangle(ExitRect, 50, Colors.ButtonOutline);
 		Utils.FillRectangle(ExitRect, Colors.ButtonBackground);

@@ -47,9 +47,6 @@ public class GameScreen : Gui {
 
 	private Scores score;
 
-	private float startTime;
-	private float endTime;
-
 	public GameScreen(WordOptions.Difficulty difficulty){
 
 		BackStyle = new GUIStyle();
@@ -98,22 +95,9 @@ public class GameScreen : Gui {
 		score = new Scores(this.difficulty);
 
 		resetSession();
-
-		startTime = Time.time;
 	}
 
 	public override void OnGUI(){
-
-		if(Time.time - startTime < Gui.FadeIn) {
-			GUI.color = new Color(1f, 1f, 1f, (Time.time - startTime) / Gui.FadeIn);
-		}
-		if(endTime != 0){
-			if(Time.time - endTime > Gui.FadeOut){
-				Main.SetGui(new MainMenu());
-			} else {
-				GUI.color = new Color(1f, 1f, 1f, 1f - ((Time.time - endTime) / Gui.FadeOut));
-			}
-		}
 
 		if (sessionStartTime == 0) {
 			// Utils.DrawRectangle(BeginRect, 50, Colors.ButtonOutline);
@@ -177,7 +161,7 @@ public class GameScreen : Gui {
 		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
-			endTime = Time.time;
+			Main.SetGui(new MainMenu());
 		}
 
 	}
