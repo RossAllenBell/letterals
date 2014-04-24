@@ -61,7 +61,7 @@ public class MainMenu : Gui {
 		GUI.Label(EasyRect, "EASY", MenuDifficultyStyle);
 
 		if(Main.Clicked && EasyRect.Contains(Main.TouchGuiLocation)){
-			Main.SetGui(new GameScreen(WordOptions.Difficulty.Easy));
+			Main.SetGui(new Instructions(WordOptions.Difficulty.Easy));
 		}
 
 		// Utils.DrawRectangle(MediumRect, 50, Colors.ButtonOutline);
@@ -69,7 +69,7 @@ public class MainMenu : Gui {
 		GUI.Label(MediumRect, "MEDIUM", MenuDifficultyStyle);
 
 		if(Main.Clicked && MediumRect.Contains(Main.TouchGuiLocation)){
-			Main.SetGui(new GameScreen(WordOptions.Difficulty.Medium));
+			Main.SetGui(new Instructions(WordOptions.Difficulty.Medium));
 		}
 
 		// Utils.DrawRectangle(HardRect, 50, Colors.ButtonOutline);
@@ -77,7 +77,7 @@ public class MainMenu : Gui {
 		GUI.Label(HardRect, "HARD", MenuDifficultyStyle);
 
 		if(Main.Clicked && HardRect.Contains(Main.TouchGuiLocation)){
-			Main.SetGui(new GameScreen(WordOptions.Difficulty.Hard));
+			Main.SetGui(new Instructions(WordOptions.Difficulty.Hard));
 		}
 
 		// Utils.DrawRectangle(ScoresRect, 50, Colors.ButtonOutline);

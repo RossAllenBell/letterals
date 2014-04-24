@@ -18,22 +18,16 @@ public class GameScreen : Gui {
 	private GUIStyle CorrectOptionStyle;
 	private GUIStyle WrongOptionStyle;
 	private GUIStyle ObsoleteOptionStyle;
-	private GUIStyle NextWordStyle;
 	private GUIStyle SessionScoreStyle;
 	private GUIStyle SessionScoreLabelStyle;
-	private GUIStyle InstructionsStyle;
 
 	private Rect BackRect;
-	private Rect BeginRect;
 	private Rect SessionScoreRect;
 	private Rect SessionAverageRect;
 	private Rect PhaseScoreImpactRect;
 	private Rect SessionScoreLabelRect;
 	private Rect SessionAverageLabelRect;
 	private Rect PhaseScoreImpactLabelRect;
-	private Rect InstructionsRect;
-
-	public const string Instructions = "You will be presented with three options as Letterals slowly form a word. Click on the word that matches what the Letterals are forming to score points and extra time. An incorrect guess will deduct points and time.";
 
 	private WordOptions.Difficulty difficulty;
 	private string currentWord;
@@ -43,9 +37,10 @@ public class GameScreen : Gui {
 	private string guessedOption;
 
 	private float sessionLowerBoundsTime;
-	private float sessionStartTime;
 
 	private Scores score;
+
+	private bool active;
 
 	public GameScreen(WordOptions.Difficulty difficulty){
 
@@ -59,11 +54,6 @@ public class GameScreen : Gui {
 		OptionStyle.normal.textColor = Colors.ClickableText;
 		OptionStyle.alignment = TextAnchor.MiddleCenter;
 
-		NextWordStyle = new GUIStyle();
-		NextWordStyle.fontSize = Main.FontLargest;
-		NextWordStyle.normal.textColor = Colors.ClickableText;
-		NextWordStyle.alignment = TextAnchor.MiddleCenter;
-
 		SessionScoreStyle = new GUIStyle();
 		SessionScoreStyle.fontSize = Main.FontLarge;
 		SessionScoreStyle.normal.textColor = Colors.ReadableText;
@@ -74,15 +64,7 @@ public class GameScreen : Gui {
 		SessionScoreLabelStyle.normal.textColor = Colors.ReadableText;
 		SessionScoreLabelStyle.alignment = TextAnchor.MiddleLeft;
 
-		InstructionsStyle = new GUIStyle();
-		InstructionsStyle.fontSize = Main.FontLarge;
-		InstructionsStyle.normal.textColor = Colors.ReadableText;
-		InstructionsStyle.alignment = TextAnchor.MiddleCenter;
-		InstructionsStyle.wordWrap = true;
-
 		BackRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
-		BeginRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
-		InstructionsRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight - (Main.NativeWidth * 0.1f));
 		SessionScoreRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		SessionAverageRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 2) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		PhaseScoreImpactRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 3) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
@@ -94,27 +76,16 @@ public class GameScreen : Gui {
 
 		score = new Scores(this.difficulty);
 
+		active = true;
+
 		resetSession();
+		resetWord();
+		sessionLowerBoundsTime = Time.time;
 	}
 
 	public override void OnGUI(){
 
-		if (sessionStartTime == 0) {
-			// Utils.DrawRectangle(BeginRect, 50, Colors.ButtonOutline);
-			Utils.FillRectangle(BeginRect, Colors.ButtonBackground);
-			GUI.Label(BeginRect, "BEGIN", NextWordStyle);
-
-			GUI.Label(InstructionsRect, Instructions, InstructionsStyle);
-
-			if(Main.Clicked && BeginRect.Contains(Main.TouchGuiLocation)) {
-				resetSession();
-				resetWord();
-
-				sessionLowerBoundsTime = Time.time;
-				sessionStartTime = Time.time;
-			}
-		} else {
-
+		if(active) {
 			float sessionHealthPercentage = (BeginningSeconds - (Time.time - sessionLowerBoundsTime)) / BeginningSeconds;
 
 			Rect sessionHealthPercentageRect = new Rect(0f, Main.NativeHeight * (sessionHealthPercentage), Main.NativeWidth, Main.NativeHeight * (1 - sessionHealthPercentage));
@@ -141,12 +112,12 @@ public class GameScreen : Gui {
 			foreach(Letteral letteral in letterals){
 				letteral.Update();
 			}
+		}
 
-			if(Time.time - sessionLowerBoundsTime > BeginningSeconds){
-				score.CheckForLifetimeRecords();
-				sessionStartTime = 0;
-			}
-
+		if(Time.time - sessionLowerBoundsTime > BeginningSeconds && active){
+			active = false;
+			score.CheckForLifetimeRecords();
+			Main.SetGui(new Instructions(difficulty, score.LastScoreImpact, score.SessionScore, score.SessionAverage));
 		}
 
 		GUI.Label(SessionScoreLabelRect, "total", SessionScoreLabelStyle);
@@ -161,13 +132,12 @@ public class GameScreen : Gui {
 		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
-			Main.SetGui(new MainMenu());
+			Main.SetGui(new Instructions(difficulty, score.LastScoreImpact, score.SessionScore, score.SessionAverage));
 		}
 
 	}
 
 	private void resetSession(){
-		sessionStartTime = 0;
 		score.ResetSession();
 	}
 
