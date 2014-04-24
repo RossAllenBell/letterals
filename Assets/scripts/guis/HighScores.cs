@@ -19,11 +19,14 @@ public class HighScores : Gui {
 
 	private Scores scores;
 
+	private float startTime;
+	private float endTime;
+
 	public HighScores(){
 
 		BackRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		
-		EasyLabelRect = new Rect(0, Main.NativeWidth * 0.05f, Main.NativeWidth, Main.NativeHeight / 3.5f);
+		EasyLabelRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight / 3.5f);
 		MediumLabelRect = new Rect(EasyLabelRect.x, EasyLabelRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyLabelRect.height);
 		HighLabelRect = new Rect(EasyLabelRect.x, MediumLabelRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyLabelRect.height);
 
@@ -35,7 +38,7 @@ public class HighScores : Gui {
 		DifficultyLabelStyle = new GUIStyle();
 		DifficultyLabelStyle.fontSize = Main.FontLargest;
 		DifficultyLabelStyle.normal.textColor = Colors.ReadableText;
-		DifficultyLabelStyle.alignment = TextAnchor.UpperCenter;
+		DifficultyLabelStyle.alignment = TextAnchor.UpperLeft;
 
 		DifficultyScoreStyle = new GUIStyle();
 		DifficultyScoreStyle.fontSize = Main.FontLargest;
@@ -49,15 +52,28 @@ public class HighScores : Gui {
 
 		scores = new Scores(WordOptions.Difficulty.Easy);
 
+		startTime = Time.time;
+
 	}
 
 	public override void OnGUI(){
+
+		if(Time.time - startTime < Gui.FadeIn) {
+			GUI.color = new Color(1f, 1f, 1f, (Time.time - startTime) / Gui.FadeIn);
+		}
+		if(endTime != 0){
+			if(Time.time - endTime > Gui.FadeOut){
+				Main.SetGui(new MainMenu());
+			} else {
+				GUI.color = new Color(1f, 1f, 1f, 1f - ((Time.time - endTime) / Gui.FadeOut));
+			}
+		}
 
 		// Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
 		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
-			Main.SetGui(new MainMenu());
+			endTime = Time.time;
 		}
 
 		GUI.Label(EasyLabelRect, "EASY", DifficultyLabelStyle);
@@ -79,22 +95,6 @@ public class HighScores : Gui {
 			displayString += "\n" + score.ToString("0");
 		}
 		GUI.Label(HighLabelRect, displayString, DifficultyScoreStyle);
-
-		// displayString = "";
-		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Easy)){
-		// 	displayString += "\n" + average.ToString("0.0");
-		// }
-		// GUI.Label(EasyLabelRect, displayString, DifficultyAverageStyle);
-		// displayString = "";
-		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Medium)){
-		// 	displayString += "\n" + average.ToString("0");
-		// }
-		// GUI.Label(MediumLabelRect, displayString, DifficultyAverageStyle);
-		// displayString = "";
-		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Hard)){
-		// 	displayString += "\n" + average.ToString("0.0");
-		// }
-		// GUI.Label(HighLabelRect, displayString, DifficultyAverageStyle);
 		
 	}
 

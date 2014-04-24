@@ -11,7 +11,7 @@ public class GameScreen : Gui {
 	public const float BeginningSeconds = 15;
 	public const float PointsToTimeConversion = ShiftSeconds / FullScore;
 
-	public static readonly Color SessionHealthPercentageColor = new Color(1f, 0f, 0f, 100f/255);
+	public static readonly Color SessionHealthPercentageColor = new Color(1f, 0f, 0f, 50f/255);
 
 	private GUIStyle BackStyle;
 	private GUIStyle OptionStyle;
@@ -47,6 +47,9 @@ public class GameScreen : Gui {
 
 	private Scores score;
 
+	private float startTime;
+	private float endTime;
+
 	public GameScreen(WordOptions.Difficulty difficulty){
 
 		BackStyle = new GUIStyle();
@@ -60,7 +63,7 @@ public class GameScreen : Gui {
 		OptionStyle.alignment = TextAnchor.MiddleCenter;
 
 		NextWordStyle = new GUIStyle();
-		NextWordStyle.fontSize = Main.FontLarge;
+		NextWordStyle.fontSize = Main.FontLargest;
 		NextWordStyle.normal.textColor = Colors.ClickableText;
 		NextWordStyle.alignment = TextAnchor.MiddleCenter;
 
@@ -81,7 +84,7 @@ public class GameScreen : Gui {
 		InstructionsStyle.wordWrap = true;
 
 		BackRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
-		BeginRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f));
+		BeginRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
 		InstructionsRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight - (Main.NativeWidth * 0.1f));
 		SessionScoreRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		SessionAverageRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 2) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
@@ -95,14 +98,27 @@ public class GameScreen : Gui {
 		score = new Scores(this.difficulty);
 
 		resetSession();
+
+		startTime = Time.time;
 	}
 
 	public override void OnGUI(){
 
+		if(Time.time - startTime < Gui.FadeIn) {
+			GUI.color = new Color(1f, 1f, 1f, (Time.time - startTime) / Gui.FadeIn);
+		}
+		if(endTime != 0){
+			if(Time.time - endTime > Gui.FadeOut){
+				Main.SetGui(new MainMenu());
+			} else {
+				GUI.color = new Color(1f, 1f, 1f, 1f - ((Time.time - endTime) / Gui.FadeOut));
+			}
+		}
+
 		if (sessionStartTime == 0) {
 			// Utils.DrawRectangle(BeginRect, 50, Colors.ButtonOutline);
 			Utils.FillRectangle(BeginRect, Colors.ButtonBackground);
-			GUI.Label(BeginRect, "begin...", NextWordStyle);
+			GUI.Label(BeginRect, "BEGIN", NextWordStyle);
 
 			GUI.Label(InstructionsRect, Instructions, InstructionsStyle);
 
@@ -161,7 +177,7 @@ public class GameScreen : Gui {
 		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
-			Main.SetGui(new MainMenu());
+			endTime = Time.time;
 		}
 
 	}

@@ -1,6 +1,7 @@
+rounded outline button images
+neon colored text
+logo/title image
 transitions between scenes
-stylizing
-visual bells and whistles
 
 ???
 high score reset with hard to push confirmation
