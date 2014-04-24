@@ -50,10 +50,10 @@ public class Scores {
 		sessionScore += points;
 		sessionAverage = ((sessionAverage * sessionCount) + (points)) / (sessionCount + 1f);
 		sessionCount++;
+		lastScoreImpact = points;
 	}
 
 	public void ResetSession(){
-		lastScoreImpact = 0;
 		sessionScore = 0;
 		sessionAverage = 0;
 		sessionCount = 0;

@@ -1,4 +1,3 @@
-fix last word score
 rounded outline button images
 neon colored text
 logo/title image
