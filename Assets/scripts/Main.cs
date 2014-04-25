@@ -19,6 +19,7 @@ public class Main : MonoBehaviour {
 	public static int FontMedium;
 
 	public static GUIStyle LetteralStyle;
+	public static GUIStyle TitleLetteralStyle;
 	
 	public static bool Clicked { get { return click; } }
 	public static Vector2 TouchLocation { get { return touchLocation; } }
@@ -82,6 +83,11 @@ public class Main : MonoBehaviour {
 		LetteralStyle.fontSize = Main.FontLargest;
 		LetteralStyle.normal.textColor = Colors.ReadableText;
 		LetteralStyle.alignment = TextAnchor.UpperCenter;
+
+		TitleLetteralStyle = new GUIStyle();
+		TitleLetteralStyle.fontSize = Main.FontLargest * 2;
+		TitleLetteralStyle.normal.textColor = Colors.ReadableText;
+		TitleLetteralStyle.alignment = TextAnchor.MiddleCenter;
 		
 		SetGui(new Intro());
 		

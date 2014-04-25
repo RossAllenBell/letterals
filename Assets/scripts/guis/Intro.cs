@@ -29,7 +29,7 @@ public class Intro : Gui {
 	public override void OnGUI(){
 
 		// Utils.DrawRectangle(NextRect, 50, Colors.ButtonOutline);
-		Utils.FillRectangle(NextRect, Colors.ButtonBackground);
+		Utils.FillRoundedRectangle(NextRect, Colors.Gold);
 		GUI.Label(NextRect, "ACKNOWLEDGE", NextStyle);
 		if(Main.Clicked && NextRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new MainMenu());

@@ -105,7 +105,7 @@ public class GameScreen : Gui {
 				}
 
 				// Utils.DrawRectangle(rect, 50, Colors.ButtonOutline);
-				Utils.FillRectangle(rect, Colors.ButtonBackground);
+				Utils.FillRoundedRectangle(rect, Colors.ButtonBackground);
 				GUI.Label(rect, currentOptions[i], OptionStyle);
 			}
 
@@ -129,7 +129,7 @@ public class GameScreen : Gui {
 		GUI.Label(PhaseScoreImpactRect, score.LastScoreImpact.ToString("0"), SessionScoreStyle);
 
 		// Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
-		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
+		Utils.FillRoundedRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new Instructions(difficulty, score.LastScoreImpact, score.SessionScore, score.SessionAverage));

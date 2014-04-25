@@ -1,9 +1,11 @@
-rounded outline button images
-neon colored text
-logo/title image
+icon
+app store images
+app store language
 
-???
 high score reset with hard to push confirmation
 show ads after session ends
 web high scores
-streak bonuses
+streak bonuses?
+sounds
+music
+change backgrounds

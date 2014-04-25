@@ -1,7 +1,14 @@
 using UnityEngine;
 
 public class Utils {
-    
+
+    public static Texture2D GreenCircle = Resources.Load("green-circle") as Texture2D;
+    public static Texture2D GreenCircleLeft = Resources.Load("green-circle-left") as Texture2D;
+    public static Texture2D GreenCircleRight = Resources.Load("green-circle-right") as Texture2D;
+    public static Texture2D GoldCircleLeft = Resources.Load("gold-circle-left") as Texture2D;
+    public static Texture2D GoldCircleRight = Resources.Load("gold-circle-right") as Texture2D;
+    public static Texture2D GoldSquare = Resources.Load("gold-square") as Texture2D;
+
     public const float BasicallyZero = 0.0001f;
     
     public static void DrawOutline(Rect position, string text, GUIStyle style) {
@@ -66,6 +73,13 @@ public class Utils {
         style.normal.background = texture;
 
         GUI.Box(rect, GUIContent.none, style);
+    }
+
+    public static void FillRoundedRectangle(Rect rect, Color color) {
+        GUI.DrawTexture(new Rect(rect.x, rect.y, rect.height / 2, rect.height), GoldCircleLeft);
+        // FillRectangle(new Rect(rect.x + (rect.height / 2), rect.y, rect.width - rect.height, rect.height), color);
+        GUI.DrawTexture(new Rect(rect.x + (rect.height / 2), rect.y, rect.width - rect.height, rect.height), GoldSquare);
+        GUI.DrawTexture(new Rect(rect.x + rect.width - (rect.height / 2), rect.y, rect.height / 2, rect.height), GoldCircleRight);
     }
         
 }

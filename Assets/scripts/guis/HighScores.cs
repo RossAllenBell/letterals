@@ -54,7 +54,7 @@ public class HighScores : Gui {
 	public override void OnGUI(){
 
 		// Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
-		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
+		Utils.FillRoundedRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new MainMenu());

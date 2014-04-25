@@ -18,7 +18,7 @@ public class Instructions : Gui {
 	private Rect PhaseScoreImpactLabelRect;
 	private Rect InstructionsRect;
 
-	public const string InstructionString = "You will be presented with three options as Letterals slowly form a word. Click on the word that matches what the Letterals are forming to score points and extra time. An incorrect guess will deduct points and time.";
+	public const string InstructionString = "Click on the word that matches what the Letterals are forming to score points and extra time. An incorrect guess will deduct points and time.";
 
 	private WordOptions.Difficulty difficulty;
 
@@ -77,7 +77,7 @@ public class Instructions : Gui {
 	public override void OnGUI(){
 
 		// Utils.DrawRectangle(BeginRect, 50, Colors.ButtonOutline);
-		Utils.FillRectangle(BeginRect, Colors.ButtonBackground);
+		Utils.FillRoundedRectangle(BeginRect, Colors.ButtonBackground);
 		GUI.Label(BeginRect, "BEGIN", NextWordStyle);
 
 		GUI.Label(InstructionsRect, InstructionString, InstructionsStyle);
@@ -96,7 +96,7 @@ public class Instructions : Gui {
 		GUI.Label(PhaseScoreImpactRect, lastScoreImpact.ToString("0"), SessionScoreStyle);
 
 		// Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
-		Utils.FillRectangle(BackRect, Colors.ButtonBackground);
+		Utils.FillRoundedRectangle(BackRect, Colors.ButtonBackground);
 		GUI.Label(BackRect, "BACK", BackStyle);
 		if(Main.Clicked && BackRect.Contains(Main.TouchGuiLocation)){
 			Main.SetGui(new MainMenu());
