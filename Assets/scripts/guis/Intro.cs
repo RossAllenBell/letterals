@@ -35,7 +35,7 @@ public class Intro : Gui {
 			Main.SetGui(new MainMenu());
 		}
 		
-		GUI.Label(IntroductionRect, "Don't play this game if you find any words offensive.", IntroductionStyle);
+		GUI.Label(IntroductionRect, "Don't play this game if there exist words you would be offended to see.", IntroductionStyle);
 	}
 
 }

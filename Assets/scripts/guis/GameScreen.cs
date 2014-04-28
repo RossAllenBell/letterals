@@ -12,6 +12,7 @@ public class GameScreen : Gui {
 	public const float PointsToTimeConversion = ShiftSeconds / FullScore;
 
 	public static readonly Color SessionHealthPercentageColor = new Color(1f, 0f, 0f, 50f/255);
+	public static readonly Color SessionHealthPercentageLineColor = new Color(1f, 0f, 0f, 1f);
 
 	private GUIStyle BackStyle;
 	private GUIStyle OptionStyle;
@@ -89,7 +90,9 @@ public class GameScreen : Gui {
 			float sessionHealthPercentage = (BeginningSeconds - (Time.time - sessionLowerBoundsTime)) / BeginningSeconds;
 
 			Rect sessionHealthPercentageRect = new Rect(0f, Main.NativeHeight * (sessionHealthPercentage), Main.NativeWidth, Main.NativeHeight * (1 - sessionHealthPercentage));
+			Rect sessionHealthPercentageLineRect = new Rect(0f, Main.NativeHeight * (sessionHealthPercentage), Main.NativeWidth, Main.GuiRatio * 20f);
 			Utils.FillRectangle(sessionHealthPercentageRect, SessionHealthPercentageColor);
+			Utils.FillRectangle(sessionHealthPercentageLineRect, SessionHealthPercentageLineColor);
 
 			for(int i=0; i<currentOptions.Count; i++){
 				Rect rect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * (i + 2)) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f));

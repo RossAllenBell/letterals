@@ -18,7 +18,7 @@ public class Instructions : Gui {
 	private Rect PhaseScoreImpactLabelRect;
 	private Rect InstructionsRect;
 
-	public const string InstructionString = "Click on the word that matches what the Letterals are forming to score points and extra time. An incorrect guess will deduct points and time.";
+	public const string InstructionString = "Click on the word that matches the slowly forming Letterals to score points and extra time. An incorrect guess will deduct points and time.";
 
 	private WordOptions.Difficulty difficulty;
 

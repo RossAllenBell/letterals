@@ -1,6 +1,6 @@
 game feedback
-  people don't notice the red bar of death
   people don't know if they're getting words right or wrong
+  	some sort of animation break where a word correctly or incorrectly goes to the score box
 
 icon
 app store images
