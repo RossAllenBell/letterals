@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GameScreen : Gui {
 
 	public const float PreviewSeconds = 0f;
-	public const float ShiftSeconds = 3f;
+	public const float ShiftSeconds = 3f + (Gui.FadeOut + Gui.FadeIn);
 	public const float FullScore = 300;
 	public const float NoGuessPenalty = -50;
 
@@ -33,7 +33,8 @@ public class GameScreen : Gui {
 	private WordOptions.Difficulty difficulty;
 	private string currentWord;
 	private List<string> currentOptions;
-	private float wordStartTime = -ShiftSeconds;
+	private float wordStartTime;
+	private float wordEndTime;
 	private List<Letteral> letterals;
 	private string guessedOption;
 
@@ -90,21 +91,37 @@ public class GameScreen : Gui {
 			float sessionHealthPercentage = (BeginningSeconds - (Time.time - sessionLowerBoundsTime)) / BeginningSeconds;
 
 			Rect sessionHealthPercentageRect = new Rect(0f, Main.NativeHeight * (sessionHealthPercentage), Main.NativeWidth, Main.NativeHeight * (1 - sessionHealthPercentage));
-			Rect sessionHealthPercentageLineRect = new Rect(0f, Main.NativeHeight * (sessionHealthPercentage), Main.NativeWidth, Main.GuiRatio * 20f);
+			Rect sessionHealthPercentageLineRect = new Rect(0f, Main.NativeHeight * (sessionHealthPercentage), Main.NativeWidth, 1f);
 			Utils.FillRectangle(sessionHealthPercentageRect, SessionHealthPercentageColor);
 			Utils.FillRectangle(sessionHealthPercentageLineRect, SessionHealthPercentageLineColor);
+
+			Color savedGuiColor = GUI.color;
+			bool changedGuiColor = false;
+			if(GUI.color.a == 1f){
+				if(Time.time - wordEndTime < Gui.FadeOut){
+					GUI.color = new Color(1f, 1f, 1f, 1f - ((Time.time - wordEndTime) / Gui.FadeOut));
+					changedGuiColor = true;
+				} else if (wordEndTime != 0) {
+					resetWord();
+				}
+
+				if (Time.time - wordStartTime < Gui.FadeIn) {
+					GUI.color = new Color(1f, 1f, 1f, (Time.time - wordStartTime) / Gui.FadeIn);
+					changedGuiColor = true;
+				}
+			}
 
 			for(int i=0; i<currentOptions.Count; i++){
 				Rect rect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * (i + 2)) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f));
 
 				if(Main.Clicked && rect.Contains(Main.TouchGuiLocation)) {
+					wordEndTime = Time.time;
 					guessedOption = currentOptions[i];
 					float scoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - wordStartTime)) / ShiftSeconds));
 					scoreImpact = guessedOption == currentWord? scoreImpact : -scoreImpact;
 					score.ScorePoints(scoreImpact);
 					sessionLowerBoundsTime += PointsToTimeConversion * scoreImpact;
 					sessionLowerBoundsTime = Mathf.Min(sessionLowerBoundsTime, Time.time + (ShiftSeconds / 2));
-					resetWord();
 				}
 
 				// Utils.DrawRectangle(rect, 50, Colors.ButtonOutline);
@@ -114,6 +131,10 @@ public class GameScreen : Gui {
 
 			foreach(Letteral letteral in letterals){
 				letteral.Update();
+			}
+
+			if (changedGuiColor) {
+				GUI.color = savedGuiColor;
 			}
 		}
 
@@ -145,6 +166,7 @@ public class GameScreen : Gui {
 	}
 
 	private void resetWord(){
+		wordEndTime = 0f;
 		wordStartTime = Time.time;
 		currentOptions = WordOptions.GetStrings(this.difficulty);
 		currentWord = currentOptions[(int) (currentOptions.Count * Random.value)];

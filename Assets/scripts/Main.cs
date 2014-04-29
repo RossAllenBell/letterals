@@ -120,7 +120,7 @@ public class Main : MonoBehaviour {
     				fadeTo = null;
     			}
 			} else {
-				GUI.color = new Color(1f, 1f, 1f, 1f - ((Time.time - guiSwitchTime)) / Gui.FadeOut);
+				GUI.color = new Color(1f, 1f, 1f, 1f - ((Time.time - guiSwitchTime) / Gui.FadeOut));
 				currentGui.OnGUI();
 			}
     	}
