@@ -6,7 +6,7 @@ public class HighScores : Gui {
 
 	private Rect EasyLabelRect;
 	private Rect MediumLabelRect;
-	private Rect HighLabelRect;
+	private Rect HardLabelRect;
 
 	private Rect EasyScoreRect;
 	private Rect MediumScoreRect;
@@ -25,7 +25,7 @@ public class HighScores : Gui {
 		
 		EasyLabelRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight / 3.5f);
 		MediumLabelRect = new Rect(EasyLabelRect.x, EasyLabelRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyLabelRect.height);
-		HighLabelRect = new Rect(EasyLabelRect.x, MediumLabelRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyLabelRect.height);
+		HardLabelRect = new Rect(EasyLabelRect.x, MediumLabelRect.y + EasyLabelRect.height, EasyLabelRect.width, EasyLabelRect.height);
 
 		BackStyle = new GUIStyle();
 		BackStyle.fontSize = Main.FontLarge;
@@ -63,7 +63,7 @@ public class HighScores : Gui {
 
 		GUI.Label(EasyLabelRect, "EASY", DifficultyLabelStyle);
 		GUI.Label(MediumLabelRect, "MEDIUM", DifficultyLabelStyle);
-		GUI.Label(HighLabelRect, "HIGH", DifficultyLabelStyle);
+		GUI.Label(HardLabelRect, "HARD", DifficultyLabelStyle);
 
 		string displayString = "";
 		foreach(int score in scores.LifetimeScores(WordOptions.Difficulty.Easy)){
@@ -79,7 +79,7 @@ public class HighScores : Gui {
 		foreach(int score in scores.LifetimeScores(WordOptions.Difficulty.Hard)){
 			displayString += "\n" + score.ToString("0");
 		}
-		GUI.Label(HighLabelRect, displayString, DifficultyScoreStyle);
+		GUI.Label(HardLabelRect, displayString, DifficultyScoreStyle);
 
 		// displayString = "";
 		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Easy)){
@@ -95,7 +95,7 @@ public class HighScores : Gui {
 		// foreach(float average in scores.LifetimeAverages(WordOptions.Difficulty.Hard)){
 		// 	displayString += "\n" + average.ToString("0.0");
 		// }
-		// GUI.Label(HighLabelRect, displayString, DifficultyAverageStyle);
+		// GUI.Label(HardLabelRect, displayString, DifficultyAverageStyle);
 		
 	}
 

@@ -12,17 +12,17 @@ public class Instructions : Gui {
 	private Rect BeginRect;
 	private Rect SessionScoreRect;
 	private Rect SessionAverageRect;
-	private Rect PhaseScoreImpactRect;
+	// private Rect PhaseScoreImpactRect;
 	private Rect SessionScoreLabelRect;
 	private Rect SessionAverageLabelRect;
-	private Rect PhaseScoreImpactLabelRect;
+	// private Rect PhaseScoreImpactLabelRect;
 	private Rect InstructionsRect;
 
 	public const string InstructionString = "Click on the word that matches the slowly forming Letterals to score points and extra time. An incorrect guess will deduct points and time.";
 
 	private WordOptions.Difficulty difficulty;
 
-	private float lastScoreImpact;
+	// private float lastScoreImpact;
 	private float sessionScore;
 	private float sessionAverage;
 
@@ -62,13 +62,13 @@ public class Instructions : Gui {
 		InstructionsRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight - (Main.NativeWidth * 0.1f));
 		SessionScoreRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		SessionAverageRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 2) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
-		PhaseScoreImpactRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 3) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
+		// PhaseScoreImpactRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 3) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		SessionScoreLabelRect = new Rect(Main.NativeWidth * 0.5f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		SessionAverageLabelRect = new Rect(Main.NativeWidth * 0.5f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 2) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
-		PhaseScoreImpactLabelRect = new Rect(Main.NativeWidth * 0.5f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 3) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
+		// PhaseScoreImpactLabelRect = new Rect(Main.NativeWidth * 0.5f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 3) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 
 		this.difficulty = difficulty;
-		this.lastScoreImpact = lastScoreImpact;
+		// this.lastScoreImpact = lastScoreImpact;
 		this.sessionScore = sessionScore;
 		this.sessionAverage = sessionAverage;
 
@@ -89,11 +89,11 @@ public class Instructions : Gui {
 
 		GUI.Label(SessionScoreLabelRect, "total", SessionScoreLabelStyle);
 		GUI.Label(SessionAverageLabelRect, "average", SessionScoreLabelStyle);
-		GUI.Label(PhaseScoreImpactLabelRect, "last word", SessionScoreLabelStyle);
+		// GUI.Label(PhaseScoreImpactLabelRect, "last word", SessionScoreLabelStyle);
 
 		GUI.Label(SessionScoreRect, sessionScore.ToString("0"), SessionScoreStyle);
 		GUI.Label(SessionAverageRect, sessionAverage.ToString("0.0"), SessionScoreStyle);
-		GUI.Label(PhaseScoreImpactRect, lastScoreImpact.ToString("0"), SessionScoreStyle);
+		// GUI.Label(PhaseScoreImpactRect, lastScoreImpact.ToString("0"), SessionScoreStyle);
 
 		// Utils.DrawRectangle(BackRect, 50, Colors.ButtonOutline);
 		Utils.FillRoundedRectangle(BackRect, Colors.ButtonBackground);

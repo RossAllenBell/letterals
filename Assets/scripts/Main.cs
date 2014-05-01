@@ -39,7 +39,6 @@ public class Main : MonoBehaviour {
 	private static Gui currentGui;
 
 	public void Start () {
-		Camera.main.backgroundColor = Colors.Background;
 
 		TextAsset wordsText = (TextAsset) Resources.Load("words");
 
