@@ -88,7 +88,7 @@ public class Main : MonoBehaviour {
 		TitleLetteralStyle.normal.textColor = Colors.ReadableText;
 		TitleLetteralStyle.alignment = TextAnchor.MiddleCenter;
 		
-		SetGui(new Intro());
+		SetGui(new MainMenu());
 		
 	}
 	

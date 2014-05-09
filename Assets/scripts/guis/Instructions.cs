@@ -6,7 +6,7 @@ public class Instructions : Gui {
 	private GUIStyle NextWordStyle;
 	private GUIStyle SessionScoreStyle;
 	private GUIStyle SessionScoreLabelStyle;
-	private GUIStyle InstructionsStyle;
+	// private GUIStyle InstructionsStyle;
 
 	private Rect BackRect;
 	private Rect BeginRect;
@@ -16,9 +16,9 @@ public class Instructions : Gui {
 	private Rect SessionScoreLabelRect;
 	private Rect SessionAverageLabelRect;
 	// private Rect PhaseScoreImpactLabelRect;
-	private Rect InstructionsRect;
+	// private Rect InstructionsRect;
 
-	public const string InstructionString = "Click on the word that matches the slowly forming Letterals to score points and extra time. An incorrect guess will deduct points and time.";
+	// public const string InstructionString = "Click on the word that matches the slowly forming Letterals to score points and extra time. An incorrect guess will deduct points and time.";
 
 	private WordOptions.Difficulty difficulty;
 
@@ -51,15 +51,15 @@ public class Instructions : Gui {
 		SessionScoreLabelStyle.normal.textColor = Colors.ReadableText;
 		SessionScoreLabelStyle.alignment = TextAnchor.MiddleLeft;
 
-		InstructionsStyle = new GUIStyle();
-		InstructionsStyle.fontSize = Main.FontLarge;
-		InstructionsStyle.normal.textColor = Colors.ReadableText;
-		InstructionsStyle.alignment = TextAnchor.MiddleCenter;
-		InstructionsStyle.wordWrap = true;
+		// InstructionsStyle = new GUIStyle();
+		// InstructionsStyle.fontSize = Main.FontLarge;
+		// InstructionsStyle.normal.textColor = Colors.ReadableText;
+		// InstructionsStyle.alignment = TextAnchor.MiddleCenter;
+		// InstructionsStyle.wordWrap = true;
 
 		BackRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
-		BeginRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
-		InstructionsRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight - (Main.NativeWidth * 0.1f));
+		BeginRect = new Rect(Main.NativeWidth * 0.05f, (Main.NativeHeight / 2f) - (Main.NativeHeight / 16f), Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight / 8f);
+		// InstructionsRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeWidth * 0.05f, Main.NativeWidth - (Main.NativeWidth * 0.1f), Main.NativeHeight - (Main.NativeWidth * 0.1f));
 		SessionScoreRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		SessionAverageRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 2) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		// PhaseScoreImpactRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - ((((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) * 3) + (Main.NativeWidth * 0.05f)), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
@@ -80,7 +80,7 @@ public class Instructions : Gui {
 		Utils.FillRoundedRectangle(BeginRect, Colors.ButtonBackground);
 		GUI.Label(BeginRect, "BEGIN", NextWordStyle);
 
-		GUI.Label(InstructionsRect, InstructionString, InstructionsStyle);
+		// GUI.Label(InstructionsRect, InstructionString, InstructionsStyle);
 
 		if(Main.Clicked && BeginRect.Contains(Main.TouchGuiLocation)) {
 			Main.SetGui(new GameScreen(difficulty));
