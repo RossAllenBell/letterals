@@ -1,6 +1,13 @@
-icon
-app store images
-app store language
+description
+	Letterals is part word puzzle, part reflex challenge. As a jumble of letters appear, you'll need to identify and select the word that is slowly forming. You're working against the clock where correct answers restore time, and incorrect answers take time away. Great for casual play!
+promo text
+	Race against time in this part word puzzle, part reflex challenge!
+
+ios images
+	640x960
+	640x1096
+	768x1024, 768x1004
+
 
 high score reset with hard to push confirmation
 show ads after session ends
