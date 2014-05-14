@@ -1,9 +1,3 @@
-ios images
-	640x960
-	640x1136
-	768x1024, 768x1004
-
-
 high score reset with hard to push confirmation
 show ads after session ends
 web high scores

@@ -39,7 +39,7 @@ public class HighScores : Gui {
 		DifficultyLabelStyle.fontStyle = FontStyle.Bold;
 
 		DifficultyScoreStyle = new GUIStyle();
-		DifficultyScoreStyle.fontSize = Main.FontLargest;
+		DifficultyScoreStyle.fontSize = Main.FontLarge;
 		DifficultyScoreStyle.normal.textColor = Colors.ReadableText;
 		DifficultyScoreStyle.alignment = TextAnchor.UpperCenter;
 

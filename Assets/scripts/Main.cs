@@ -124,6 +124,10 @@ public class Main : MonoBehaviour {
 			}
     	}
 
+    	// if(Input.GetKeyUp(KeyCode.Space)){
+    	// 	Application.CaptureScreenshot("non-build-resources/screenshots/" + Time.time + ".png");
+    	// }
+
 	}
 
 	public static void SetGui(Gui gui) {
