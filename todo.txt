@@ -1,3 +1,10 @@
+add "Letterals" to game descriptions
+letters start offscreen sometimes
+button gradiant for iOS
+allow naming a high score
+make easy easier
+possibly can multi-tap correct answers to gain time
+
 high score reset with hard to push confirmation
 show ads after session ends
 web high scores
