@@ -1,3 +1,4 @@
+sometimes the game will crash when hitting a word choice fast, or too fast?
 add "Letterals" to game descriptions
 letters start offscreen sometimes
 button gradiant for iOS
