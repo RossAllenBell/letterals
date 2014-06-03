@@ -3,6 +3,7 @@ button gradiant for iOS
 make easy easier
 possibly can multi-tap correct answers to gain time
 multiple, rotating, transparent backgrounds
+remove exit button on iOS?
 
 high score reset with hard to push confirmation
 show ads after session ends
