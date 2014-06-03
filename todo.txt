@@ -1,10 +1,8 @@
 sometimes the game will crash when hitting a word choice fast, or too fast?
-add "Letterals" to game descriptions
-letters start offscreen sometimes
 button gradiant for iOS
-allow naming a high score
 make easy easier
 possibly can multi-tap correct answers to gain time
+multiple, rotating, transparent backgrounds
 
 high score reset with hard to push confirmation
 show ads after session ends
@@ -13,3 +11,4 @@ streak bonuses?
 sounds
 music
 change backgrounds
+allow naming a high score
