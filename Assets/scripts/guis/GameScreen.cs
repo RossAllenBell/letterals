@@ -136,7 +136,7 @@ public class GameScreen : Gui {
 			for(int i=0; i<currentOptions.Count; i++){
 				Rect rect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 6f) * (i + 2)) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 6f) - (Main.NativeWidth * 0.05f));
 
-				if(Main.Clicked && rect.Contains(Main.TouchGuiLocation)) {
+				if(Main.Clicked && rect.Contains(Main.TouchGuiLocation) && wordEndTime == 0) {
 					wordEndTime = Time.time;
 					guessedOption = currentOptions[i];
 					float scoreImpact = Mathf.Round(FullScore * (Mathf.Max(0, ShiftSeconds - (Time.time - wordStartTime)) / ShiftSeconds));
