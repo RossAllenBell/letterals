@@ -7,11 +7,11 @@ public class GameScreen : Gui {
 	public const float WordFadeIn = 0.6f;
 
 	public const float PreviewSeconds = 0f;
-	public const float ShiftSeconds = 3f + (WordFadeOut + WordFadeIn);
+	public const float ShiftSeconds = 4f + (WordFadeOut + WordFadeIn);
 	public const float FullScore = 300;
 	public const float NoGuessPenalty = -50;
 
-	public const float BeginningSeconds = 15;
+	public const float BeginningSeconds = 20;
 	public const float PointsToTimeConversion = ShiftSeconds / FullScore;
 
 	public static readonly Color SessionHealthPercentageColor = new Color(1f, 0f, 0f, 75f/255);
