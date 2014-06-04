@@ -1,5 +1,3 @@
-multiple, rotating, transparent backgrounds
-
 high score reset with hard to push confirmation
 show ads after session ends
 web high scores
