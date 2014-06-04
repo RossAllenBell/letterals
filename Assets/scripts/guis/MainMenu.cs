@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 public class MainMenu : Gui {
 
-	private Rect ExitRect;
+	// private Rect ExitRect;
 	private Rect EasyRect;
 	private Rect MediumRect;
 	private Rect HardRect;
 	private Rect ScoresRect;
 
-	private GUIStyle ExitStyle;
+	// private GUIStyle ExitStyle;
 	private GUIStyle MenuDifficultyStyle;
 	private GUIStyle ScoresStyle;
 
@@ -17,16 +17,16 @@ public class MainMenu : Gui {
 
 	public MainMenu(){
 
-		ExitRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
+		// ExitRect = new Rect(Main.NativeWidth * 0.05f, Main.NativeHeight - (((Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f)) + (Main.NativeWidth * 0.05f)), (Main.NativeWidth / 3) - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 12f) - (Main.NativeWidth * 0.05f));
 		EasyRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 2) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
 		MediumRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 3) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
 		HardRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 4) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
 		ScoresRect = new Rect(0 + (Main.NativeWidth * 0.05f), ((Main.NativeHeight / 8f) * 6) + (Main.NativeWidth * 0.025f), Main.NativeWidth - (Main.NativeWidth * 0.1f), (Main.NativeHeight / 8f) - (Main.NativeWidth * 0.05f));
 
-		ExitStyle = new GUIStyle();
-		ExitStyle.fontSize = Main.FontLarge;
-		ExitStyle.normal.textColor = Colors.ClickableText;
-		ExitStyle.alignment = TextAnchor.MiddleCenter;
+		// ExitStyle = new GUIStyle();
+		// ExitStyle.fontSize = Main.FontLarge;
+		// ExitStyle.normal.textColor = Colors.ClickableText;
+		// ExitStyle.alignment = TextAnchor.MiddleCenter;
 
 		MenuDifficultyStyle = new GUIStyle();
 		MenuDifficultyStyle.fontSize = Main.FontLargest;
@@ -45,11 +45,11 @@ public class MainMenu : Gui {
 	public override void OnGUI(){
 
 		// Utils.DrawRectangle(ExitRect, 50, Colors.ButtonOutline);
-		Utils.FillRoundedRectangle(ExitRect, Colors.ButtonBackground);
-		GUI.Label(ExitRect, "EXIT", ExitStyle);
-		if(Main.Clicked && ExitRect.Contains(Main.TouchGuiLocation)){
-			Application.Quit();
-		}
+		// Utils.FillRoundedRectangle(ExitRect, Colors.ButtonBackground);
+		// GUI.Label(ExitRect, "EXIT", ExitStyle);
+		// if(Main.Clicked && ExitRect.Contains(Main.TouchGuiLocation)){
+		// 	Application.Quit();
+		// }
 		
 		foreach(TitleLetteral letteral in titleLetterals){
 			letteral.Update();
