@@ -1,4 +1,3 @@
-button gradiant for iOS
 make easy easier
 possibly can multi-tap correct answers to gain time
 multiple, rotating, transparent backgrounds
