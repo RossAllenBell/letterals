@@ -131,10 +131,12 @@ public class Main : MonoBehaviour {
 	}
 
 	public static void SetGui(Gui gui) {
-		guiSwitchTime = Time.time;
-		fadeTo = gui;
-		if(currentGui == null){
-			guiSwitchTime -= Gui.FadeOut;
+		if (fadeTo == null) {
+			guiSwitchTime = Time.time;
+			fadeTo = gui;
+			if(currentGui == null){
+				guiSwitchTime -= Gui.FadeOut;
+			}
 		}
 	}
 
