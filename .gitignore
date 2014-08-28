@@ -9,3 +9,5 @@ Temp/
 *.keystore
 *.pdb
 output.txt
+.DS_store
+ios/
